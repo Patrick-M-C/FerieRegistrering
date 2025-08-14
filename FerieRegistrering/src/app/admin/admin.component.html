@@ -1,0 +1,23 @@
+<h1>Admin Panel</h1>
+<p>Her kan du administrere brugere.</p>
+
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Navn</th>
+      <th>Email</th>
+      <th>Handling</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <button (click)="deleteUser(user.id)">Slet</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,17 @@
+h1 {
+  color: darkred;
+}
+table {
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: darkred;
+}
