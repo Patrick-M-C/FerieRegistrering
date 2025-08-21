@@ -22,7 +22,7 @@ namespace FerieRegistreringBackend.API
                  options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
                  });
 
-            // DbContext
+            
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -31,6 +31,7 @@ namespace FerieRegistreringBackend.API
             // Repository
             builder.Services.AddScoped<IUser, UserRepo>();
             builder.Services.AddScoped<IVacation, VacationRepo>();
+            builder.Services.AddScoped<ITimeEntry, TimeEntryRepo>();
 
             var app = builder.Build();
 

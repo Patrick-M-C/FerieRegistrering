@@ -71,9 +71,9 @@ namespace FerieRegistreringBackend.Repository.Database
                 new Models.Vacation
                 {
                     Id = 1,
-                    StartDate = new DateOnly(2023, 6, 1),
-                    EndDate = new DateOnly(2023, 6, 10),
-                    Reason = "Family vacation",
+                    StartDate = new DateOnly(2025, 10, 10),
+                    EndDate = new DateOnly(2025, 12, 12),
+                    Reason = "Battlefield 6",
                     IsApproved = true,
                     UserId = 1
                 },
@@ -85,6 +85,45 @@ namespace FerieRegistreringBackend.Repository.Database
                     Reason = "Sick leave",
                     IsApproved = false,
                     UserId = 2
+                }
+            );
+
+            modelBuilder.Entity<Models.TimeEntry>().HasData(
+                new Models.TimeEntry
+                {
+                    Id = 1,
+                    UserId = 1,
+                    Date = new DateOnly(2025, 8, 20),
+                    StartTime = new TimeSpan(9, 0, 0),
+                    EndTime = new TimeSpan(17, 0, 0),
+                    Description = "Første arbejdsdag efter ferie"
+                },
+                new Models.TimeEntry
+                {
+                    Id = 2,
+                    UserId = 2,
+                    Date = new DateOnly(2025, 8, 21),
+                    StartTime = new TimeSpan(10, 30, 0),
+                    EndTime = new TimeSpan(16, 30, 0),
+                    Description = "Halv arbejdsdag pga. lægebesøg"
+                },
+                new Models.TimeEntry
+                {
+                    Id = 3,
+                    UserId = 3,
+                    Date = new DateOnly(2025, 8, 22),
+                    StartTime = new TimeSpan(8, 0, 0),
+                    EndTime = new TimeSpan(15, 0, 0),
+                    Description = "Donut pause hele dagen"
+                },
+                new Models.TimeEntry
+                {
+                    Id = 4,
+                    UserId = 4,
+                    Date = new DateOnly(2025, 8, 22),
+                    StartTime = new TimeSpan(9, 15, 0),
+                    EndTime = new TimeSpan(18, 15, 0),
+                    Description = "Lang dag med kode"
                 }
             );
 

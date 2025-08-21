@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FerieRegistreringBackend.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250821222614_data")]
+    [Migration("20250821234152_data")]
     partial class data
     {
         /// <inheritdoc />
@@ -54,6 +54,44 @@ namespace FerieRegistreringBackend.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TimeEntries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateOnly(2025, 8, 20),
+                            Description = "Første arbejdsdag efter ferie",
+                            EndTime = new TimeSpan(0, 17, 0, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0),
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateOnly(2025, 8, 21),
+                            Description = "Halv arbejdsdag pga. lægebesøg",
+                            EndTime = new TimeSpan(0, 16, 30, 0, 0),
+                            StartTime = new TimeSpan(0, 10, 30, 0, 0),
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateOnly(2025, 8, 22),
+                            Description = "Donut pause hele dagen",
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            StartTime = new TimeSpan(0, 8, 0, 0, 0),
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateOnly(2025, 8, 22),
+                            Description = "Lang dag med kode",
+                            EndTime = new TimeSpan(0, 18, 15, 0, 0),
+                            StartTime = new TimeSpan(0, 9, 15, 0, 0),
+                            UserId = 4
+                        });
                 });
 
             modelBuilder.Entity("FerieRegistreringBackend.Repository.Models.User", b =>
@@ -169,10 +207,10 @@ namespace FerieRegistreringBackend.API.Migrations
                         new
                         {
                             Id = 1,
-                            EndDate = new DateOnly(2023, 6, 10),
+                            EndDate = new DateOnly(2025, 12, 12),
                             IsApproved = true,
-                            Reason = "Family vacation",
-                            StartDate = new DateOnly(2023, 6, 1),
+                            Reason = "Battlefield 6",
+                            StartDate = new DateOnly(2025, 10, 10),
                             UserId = 1
                         },
                         new

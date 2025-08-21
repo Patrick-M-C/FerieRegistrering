@@ -89,11 +89,22 @@ namespace FerieRegistreringBackend.API.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "TimeEntries",
+                columns: new[] { "Id", "Date", "Description", "EndTime", "StartTime", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateOnly(2025, 8, 20), "Første arbejdsdag efter ferie", new TimeSpan(0, 17, 0, 0, 0), new TimeSpan(0, 9, 0, 0, 0), 1 },
+                    { 2, new DateOnly(2025, 8, 21), "Halv arbejdsdag pga. lægebesøg", new TimeSpan(0, 16, 30, 0, 0), new TimeSpan(0, 10, 30, 0, 0), 2 },
+                    { 3, new DateOnly(2025, 8, 22), "Donut pause hele dagen", new TimeSpan(0, 15, 0, 0, 0), new TimeSpan(0, 8, 0, 0, 0), 3 },
+                    { 4, new DateOnly(2025, 8, 22), "Lang dag med kode", new TimeSpan(0, 18, 15, 0, 0), new TimeSpan(0, 9, 15, 0, 0), 4 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Vacations",
                 columns: new[] { "Id", "EndDate", "IsApproved", "Reason", "StartDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(2023, 6, 10), true, "Family vacation", new DateOnly(2023, 6, 1), 1 },
+                    { 1, new DateOnly(2025, 12, 12), true, "Battlefield 6", new DateOnly(2025, 10, 10), 1 },
                     { 2, new DateOnly(2023, 7, 20), false, "Sick leave", new DateOnly(2023, 7, 15), 2 }
                 });
 
