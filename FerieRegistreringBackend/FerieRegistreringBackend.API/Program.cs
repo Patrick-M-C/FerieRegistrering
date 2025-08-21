@@ -16,6 +16,12 @@ namespace FerieRegistreringBackend.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                 {
+                 options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                 });
+
             // DbContext
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(
@@ -24,6 +30,7 @@ namespace FerieRegistreringBackend.API
 
             // Repository
             builder.Services.AddScoped<IUser, UserRepo>();
+            builder.Services.AddScoped<IVacation, VacationRepo>();
 
             var app = builder.Build();
 
