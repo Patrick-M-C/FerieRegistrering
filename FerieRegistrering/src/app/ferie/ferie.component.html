@@ -1,0 +1,31 @@
+<h1>Ferie Registrering</h1>
+<p>Her kan du registrere dine ferieperioder.</p>
+
+<form (ngSubmit)="gemFerie()">
+  <div>
+    <label for="startDato">Startdato:</label>
+    <input id="startDato" type="date" [(ngModel)]="startDato" name="startDato">
+  </div>
+
+  <div>
+    <label for="slutDato">Slutdato:</label>
+    <input id="slutDato" type="date" [(ngModel)]="slutDato" name="slutDato">
+  </div>
+
+  <div>
+    <label for="kommentar">Kommentar:</label>
+    <textarea id="kommentar" [(ngModel)]="kommentar" name="kommentar"></textarea>
+  </div>
+
+  <button type="submit">Gem</button>
+</form>
+
+<hr>
+
+<h2>Registrerede Ferier</h2>
+<ul>
+  <li *ngFor="let ferie of registreringer">
+    Fra: {{ ferie.start }} Til: {{ ferie.slut }} 
+    <span *ngIf="ferie.kommentar"> ({{ ferie.kommentar }})</span>
+  </li>
+</ul>
