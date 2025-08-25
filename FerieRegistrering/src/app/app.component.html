@@ -1,9 +1,12 @@
-<h1>Velkommen til Ferie Registrering</h1>
+<h1>Ferie Registrering</h1>
+
 <nav>
   <a routerLink="/login">Login</a> |
   <a routerLink="/ferie">Ferie</a> |
-  <a routerLink="/admin">Admin</a>
+  <a routerLink="/admin">Admin</a> |
+  <button *ngIf="authService.isLoggedIn()" (click)="authService.logout()">Log ud</button>
 </nav>
+
 <hr>
 
 <router-outlet></router-outlet>

@@ -1,23 +1,37 @@
-<h1>Admin Panel</h1>
-<p>Her kan du administrere brugere.</p>
+<h2>Admin Panel</h2>
+
+<form (ngSubmit)="addUser()" style="margin-bottom: 1rem;">
+  <label>
+    Brugernavn:
+    <input [(ngModel)]="newUsername" name="username" required>
+  </label>
+
+  <label>
+    Rolle:
+    <select [(ngModel)]="newRole" name="role">
+      <option value="user">Medarbejder</option>
+      <option value="admin">Admin</option>
+    </select>
+  </label>
+
+  <button type="submit">Tilføj bruger</button>
+</form>
 
 <table border="1" cellpadding="5">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Navn</th>
-      <th>Email</th>
+      <th>Brugernavn</th>
+      <th>Rolle</th>
       <th>Handling</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of users">
       <td>{{ user.id }}</td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.email }}</td>
-      <td>
-        <button (click)="deleteUser(user.id)">Slet</button>
-      </td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.role }}</td>
+      <td><button (click)="deleteUser(user.id)">Slet</button></td>
     </tr>
   </tbody>
 </table>

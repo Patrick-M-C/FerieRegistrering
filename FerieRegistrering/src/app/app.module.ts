@@ -15,7 +15,8 @@ import { FerieComponent } from './ferie/ferie.component';
     AppComponent,
     LoginComponent,
     AdminComponent,
-    FerieComponent
+    FerieComponent,
+    FormsModule
   ],
   imports: [
     BrowserModule,

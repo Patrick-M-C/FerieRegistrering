@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-admin',
@@ -6,13 +8,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  users = [
-    { id: 1, name: 'Peter', email: 'peter@example.com' },
-    { id: 2, name: 'Sara', email: 'sara@example.com' },
-    { id: 3, name: 'Lars', email: 'lars@example.com' }
-  ];
+  users: User[] = [];
+  newUsername = '';
+  newRole: 'admin' | 'user' = 'user';
+
+  constructor(private userService: UserService) {
+    this.users = this.userService.getUsers();
+  }
+
+  addUser() {
+    if (this.newUsername.trim()) {
+      this.userService.addUser(this.newUsername, this.newRole);
+      this.newUsername = '';
+      this.newRole = 'user';
+      this.users = this.userService.getUsers(); // opdater liste
+    }
+  }
 
   deleteUser(id: number) {
-    this.users = this.users.filter(user => user.id !== id);
+    this.userService.deleteUser(id);
+    this.users = this.userService.getUsers();
   }
 }

@@ -1,19 +1,17 @@
-<div class="login-container">
-  <h2>Log ind</h2>
-  
-  <form (ngSubmit)="onLogin()">
-    <div>
-      <label>Brugernavn:</label>
-      <input type="text" [(ngModel)]="username" name="username" required>
-    </div>
+<h1>Login</h1>
 
-    <div>
-      <label>Kodeord:</label>
-      <input type="password" [(ngModel)]="password" name="password" required>
-    </div>
+<form (ngSubmit)="login()">
+  <div>
+    <label for="username">Brugernavn:</label>
+    <input id="username" [(ngModel)]="username" name="username" required>
+  </div>
 
-    <button type="submit">Log ind</button>
+  <div>
+    <label for="password">Adgangskode:</label>
+    <input id="password" type="password" [(ngModel)]="password" name="password" required>
+  </div>
 
-    <p *ngIf="loginError" style="color: red;">Forkert brugernavn eller kodeord!</p>
-  </form>
-</div>
+  <button type="submit">Login</button>
+</form>
+
+<p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
