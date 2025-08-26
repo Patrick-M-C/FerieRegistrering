@@ -1,29 +1,27 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ferie',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './ferie.component.html',
   styleUrls: ['./ferie.component.css']
 })
 export class FerieComponent {
-  startDato: string = '';
-  slutDato: string = '';
-  kommentar: string = '';
-  registreringer: any[] = [];
+  startDato = '';
+  slutDato = '';
+  kommentar = '';
+  ferier: any[] = [];
 
   gemFerie() {
-    if (!this.startDato || !this.slutDato) {
-      alert('Udfyld venligst både start- og slutdato.');
-      return;
-    }
-
-    this.registreringer.push({
-      start: this.startDato,
-      slut: this.slutDato,
+    this.ferier.push({
+      startDato: this.startDato,
+      slutDato: this.slutDato,
       kommentar: this.kommentar
     });
 
-    // Nulstil formularen
     this.startDato = '';
     this.slutDato = '';
     this.kommentar = '';

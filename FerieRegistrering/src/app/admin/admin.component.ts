@@ -1,32 +1,22 @@
 import { Component } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { User } from '../models/user';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  users: User[] = [];
+  users: any[] = [];
   newUsername = '';
-  newRole: 'admin' | 'user' = 'user';
-
-  constructor(private userService: UserService) {
-    this.users = this.userService.getUsers();
-  }
+  newRole = 'user';
 
   addUser() {
-    if (this.newUsername.trim()) {
-      this.userService.addUser(this.newUsername, this.newRole);
-      this.newUsername = '';
-      this.newRole = 'user';
-      this.users = this.userService.getUsers(); // opdater liste
-    }
-  }
-
-  deleteUser(id: number) {
-    this.userService.deleteUser(id);
-    this.users = this.userService.getUsers();
+    this.users.push({ username: this.newUsername, role: this.newRole });
+    this.newUsername = '';
+    this.newRole = 'user';
   }
 }

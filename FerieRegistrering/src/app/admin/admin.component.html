@@ -1,37 +1,16 @@
-<h2>Admin Panel</h2>
-
-<form (ngSubmit)="addUser()" style="margin-bottom: 1rem;">
-  <label>
-    Brugernavn:
-    <input [(ngModel)]="newUsername" name="username" required>
-  </label>
-
-  <label>
-    Rolle:
-    <select [(ngModel)]="newRole" name="role">
-      <option value="user">Medarbejder</option>
-      <option value="admin">Admin</option>
-    </select>
-  </label>
+<h2>Admin - Opret bruger</h2>
+<form (ngSubmit)="addUser()">
+  <input [(ngModel)]="newUsername" name="username" placeholder="Brugernavn" required>
+  
+  <select [(ngModel)]="newRole" name="role">
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+  </select>
 
   <button type="submit">Tilføj bruger</button>
 </form>
 
-<table border="1" cellpadding="5">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Brugernavn</th>
-      <th>Rolle</th>
-      <th>Handling</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <td>{{ user.username }}</td>
-      <td>{{ user.role }}</td>
-      <td><button (click)="deleteUser(user.id)">Slet</button></td>
-    </tr>
-  </tbody>
-</table>
+<h3>Brugere:</h3>
+<ul>
+  <li *ngFor="let u of users">{{ u.username }} ({{ u.role }})</li>
+</ul>
