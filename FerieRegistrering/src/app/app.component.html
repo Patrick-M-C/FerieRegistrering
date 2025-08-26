@@ -1,11 +1,12 @@
-<h1>Ferie Registrering</h1>
-
-<nav>
-  <a routerLink="/">Login</a> |
-  <a routerLink="/admin">Admin</a> |
+<nav class="navbar">
+  <a routerLink="/login">Login</a>
+  <a routerLink="/admin">Admin</a>
   <a routerLink="/ferie">Ferie</a>
-</nav>
 
-<hr>
+  <!-- Log ud knap - altid synlig, men deaktiveret hvis ikke logget ind -->
+  <button class="logout-btn" (click)="logout()" [disabled]="!isLoggedIn">
+    Log ud
+  </button>
+</nav>
 
 <router-outlet></router-outlet>

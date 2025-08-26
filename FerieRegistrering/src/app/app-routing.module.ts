@@ -6,6 +6,7 @@ import { FerieComponent } from './ferie/ferie.component';
 import { AuthGuard } from './auth/auth-guard';
 import { AdminGuard } from './auth/admin-guard';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

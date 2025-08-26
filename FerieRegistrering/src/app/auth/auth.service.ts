@@ -5,34 +5,34 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUser: { username: string, role: string } | null = null;
+  isLoggedIn = false;
+  currentUser: any = null;
+  users: any;
 
   constructor(private router: Router) {}
 
   login(username: string, password: string): boolean {
-    // Dummy login (kan udskiftes med API senere)
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'Admin' && password === 'Admin') {
+      this.isLoggedIn = true;
       this.currentUser = { username, role: 'admin' };
       this.router.navigate(['/admin']);
-      return true;
-    } else if (username === 'user' && password === 'user123') {
-      this.currentUser = { username, role: 'user' };
-      this.router.navigate(['/ferie']);
       return true;
     }
     return false;
   }
 
-  logout() {
-    this.currentUser = null;
-    this.router.navigate(['/login']);
+  logout(): void {
+  this.isLoggedIn = false;
+  this.currentUser = null;
+  this.router.navigate(['/login']);
+}
+
+
+  getUsers() {
+    return this.users;
   }
 
-  isLoggedIn(): boolean {
-    return this.currentUser !== null;
-  }
-
-  getRole(): string | null {
-    return this.currentUser ? this.currentUser.role : null;
+  addUser(username: string, password: string, role: string) {
+    this.users.push({ username, password, role });
   }
 }
