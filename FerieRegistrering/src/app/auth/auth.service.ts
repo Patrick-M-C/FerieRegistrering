@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   isLoggedIn = false;
   currentUser: any = null;
-  users: any;
+  users: any[] = [];
 
   constructor(private router: Router) {}
 
@@ -17,22 +17,22 @@ export class AuthService {
       this.currentUser = { username, role: 'admin' };
       this.router.navigate(['/admin']);
       return true;
+    } else if (username === 'User' && password === 'User') {
+      this.isLoggedIn = true;
+      this.currentUser = { username, role: 'user' };
+      this.router.navigate(['/home']);
+      return true;
     }
     return false;
   }
 
   logout(): void {
-  this.isLoggedIn = false;
-  this.currentUser = null;
-  this.router.navigate(['/login']);
-}
-
-
-  getUsers() {
-    return this.users;
+    this.isLoggedIn = false;
+    this.currentUser = null;
+    this.router.navigate(['/login']);
   }
 
-  addUser(username: string, password: string, role: string) {
-    this.users.push({ username, password, role });
+  getRole(): string | null {
+    return this.currentUser ? this.currentUser.role : null;
   }
 }
