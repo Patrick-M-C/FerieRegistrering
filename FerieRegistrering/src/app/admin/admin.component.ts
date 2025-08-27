@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 interface User {
   id: number;
@@ -9,6 +11,7 @@ interface User {
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
+  imports: [CommonModule, FormsModule ],
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
