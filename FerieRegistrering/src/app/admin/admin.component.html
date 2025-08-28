@@ -1,7 +1,35 @@
 <h2>Admin Brugeroversigt</h2>
 
+<div class="table-responsive"></div>
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Navn</th>
+      <th>Efternavn</th>
+      <th>Email</th>
+      <th>Fødselsdato</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.dateOfBirth | date }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
 <!-- Liste over brugere -->
-<table>
+<!-- <table>
   <thead>
     <tr>
       <th>ID</th>
@@ -21,10 +49,10 @@
       </td>
     </tr>
   </tbody>
-</table>
+</table> -->
 
 <!-- Redigeringsformular -->
-<div *ngIf="editingUser" class="edit-form">
+<!-- <div *ngIf="editingUser" class="edit-form">
   <h3>Rediger Bruger</h3>
   <label>
     Brugernavn:
@@ -39,5 +67,5 @@
   </label>
 
   <button (click)="saveUser()">💾 Gem</button>
-  <button (click)="cancelEdit()">❌ Annuller</button>
-</div>
+  <button (click)="cancelEdit()">❌ Annuller</button> -->
+<!-- </div> -->
