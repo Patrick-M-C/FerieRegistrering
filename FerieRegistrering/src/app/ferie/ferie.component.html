@@ -1,7 +1,7 @@
 <h2>Ferieoversigt</h2>
 
 <!-- Formular til at gemme ferie -->
-<form (ngSubmit)="gemFerie()">
+<form class="ferie-form" (ngSubmit)="gemFerie()">
   <label for="startDato">Startdato:</label>
   <input id="startDato" type="date" [(ngModel)]="startDato" name="startDato" required>
 
@@ -28,9 +28,9 @@
 <h3>Ferie Kalender</h3>
 
 <div class="calendar-header">
-  <button (click)="prevMonth()">Forrige</button>
+  <button (click)="prevMonth()">⬅</button>
   <span>{{ monthName | titlecase }} {{ currentYear }}</span>
-  <button (click)="nextMonth()">Næste</button>
+  <button (click)="nextMonth()">➡</button>
 </div>
 
 <div class="calendar-grid">
