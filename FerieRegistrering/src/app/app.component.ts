@@ -11,6 +11,8 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  router: any;
+  authService: any;
   constructor(private auth: AuthService) {}
 
   get isLoggedIn(): boolean {
@@ -18,8 +20,7 @@ export class AppComponent {
   }
 
   logout() {
-    if (this.isLoggedIn) {
-      this.auth.logout();
-    }
+    this.authService.logout();
+    this.router.navigate(['/home']);
   }
 }

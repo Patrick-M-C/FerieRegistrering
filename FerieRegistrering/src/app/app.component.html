@@ -1,12 +1,10 @@
 <nav class="navbar">
+  <a routerLink="/"> Home</a>
   <a routerLink="/login">Login</a>
   <a routerLink="/admin">Admin</a>
   <a routerLink="/ferie">Ferie</a>
 
-  <!-- Log ud knap - altid synlig, men deaktiveret hvis ikke logget ind -->
-  <button class="logout-btn" (click)="logout()" [disabled]="!isLoggedIn">
-    Log ud
-  </button>
+  <button (click)="logout()">Log ud</button>
 </nav>
 
 <router-outlet></router-outlet>
