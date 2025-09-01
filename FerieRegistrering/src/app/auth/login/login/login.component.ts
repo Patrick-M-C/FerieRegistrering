@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username = '';
-  password = '';
-  loginError = false;
+  username: string = '';
+  password: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
-  onLogin() {
-    const success = this.authService.login(this.username, this.password);
-    if (success) {
-      if (this.authService.getRole() === 'admin') {
-        this.router.navigate(['/admin']);
-      } else {
-        this.router.navigate(['/ferie']);
-      }
+  login() {
+    // Her kan du lave en rigtig auth check senere
+    if (this.username === 'admin' && this.password === '1234') {
+      // Simpel demo redirect til admin
+      this.router.navigate(['/admin']);
     } else {
-      this.loginError = true;
+      alert('Forkert brugernavn eller kodeord');
     }
   }
 }
