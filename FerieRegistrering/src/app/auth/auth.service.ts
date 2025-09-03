@@ -1,41 +1,38 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isLoggedInStatus = false;
-  private currentUserRole: 'admin' | 'medarbejder' | null = null;
+  isLoggedIn = false;
+  currentUser: any = null;
+  users: any[] = [];
+
+  constructor(private router: Router) {}
 
   login(username: string, password: string): boolean {
-    // Simulerer login (hardkodet test-bruger)
-    if (username === 'admin' && password === '1234') {
-      this.isLoggedInStatus = true;
-      this.currentUserRole = 'admin';
-      localStorage.setItem('role', 'admin');
+    if (username === 'Admin' && password === 'Admin') {
+      this.isLoggedIn = true;
+      this.currentUser = { username, role: 'admin' };
+      this.router.navigate(['/admin']);
       return true;
-    } 
-    else if (username === 'medarbejder' && password === '1234') {
-      this.isLoggedInStatus = true;
-      this.currentUserRole = 'medarbejder';
-      localStorage.setItem('role', 'medarbejder');
+    } else if (username === 'User' && password === 'User') {
+      this.isLoggedIn = true;
+      this.currentUser = { username, role: 'user' };
+      this.router.navigate(['/home']);
       return true;
     }
     return false;
   }
 
-  logout() {
-    this.isLoggedInStatus = false;
-    this.currentUserRole = null;
-    localStorage.removeItem('role');
+  logout(): void {
+    this.isLoggedIn = false;
+    this.currentUser = null;
+    this.router.navigate(['/login']);
   }
 
-  isLoggedIn(): boolean {
-  // Tjekker om role er gemt
-  return !!localStorage.getItem('role');
-}
-
-getRole(): 'admin' | 'medarbejder' | null {
-  return localStorage.getItem('role') as 'admin' | 'medarbejder' | null;
-}
+  getRole(): string | null {
+    return this.currentUser ? this.currentUser.role : null;
+  }
 }

@@ -1,7 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { App } from './app/app';
-import { config } from './app/app.config.server';
+import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
 
-const bootstrap = () => bootstrapApplication(App, config);
+const bootstrap = () => bootstrapApplication(AppComponent, {
+  providers: [provideRouter(routes)]
+});
 
 export default bootstrap;
