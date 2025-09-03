@@ -1,20 +1,16 @@
-﻿using FerieRegistreringBackend.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FerieRegistreringBackend.Repository.Models;
 
 namespace FerieRegistreringBackend.Repository.Interfaces
 {
     public interface IVacation
     {
-        Task<IEnumerable<Vacation>> GetAllAsync();
+        Task<Vacation> CreateAsync(int userId, Vacation v);
+        Task<IEnumerable<Vacation>> GetMineAsync(int userId);
+        Task<IEnumerable<Vacation>> GetPendingAsync();
         Task<Vacation?> GetByIdAsync(int id);
-        Task<IEnumerable<Vacation>> GetByUserIdAsync(int userId);
-        Task<Vacation> AddAsync(Vacation vacation);
-        Task<Vacation> UpdateAsync(Vacation vacation);
-        Task<bool> DeleteAsync(int id);
-
+        Task<Vacation?> ApproveAsync(int id, int leaderUserId, string? comment);
+        Task<Vacation?> RejectAsync(int id, int leaderUserId, string? comment);
     }
 }
