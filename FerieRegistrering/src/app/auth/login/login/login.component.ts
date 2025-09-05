@@ -13,16 +13,21 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  authService: any;
 
   constructor(private router: Router) {}
 
   login() {
-    // Her kan du lave en rigtig auth check senere
-    if (this.username === 'admin' && this.password === '1234') {
-      // Simpel demo redirect til admin
-      this.router.navigate(['/admin']);
+    const success = this.authService.login(this.username, this.password);
+    if (success) {
+      const role = this.authService.getRole();
+      if (role === 'admin') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/profile']);
+      }
     } else {
-      alert('Forkert brugernavn eller kodeord');
+      alert('Forkert brugernavn eller adgangskode');
     }
   }
 }

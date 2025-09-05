@@ -1,0 +1,22 @@
+<h2>Min profil</h2>
+
+<div *ngIf="user">
+  <div *ngIf="!editing">
+    <p><strong>Brugernavn:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Rolle:</strong> {{ user.role }}</p>
+
+    <button (click)="toggleEdit()">Rediger</button>
+  </div>
+
+  <div *ngIf="editing">
+    <label for="username">Brugernavn:</label>
+    <input id="username" [(ngModel)]="user.username" name="username">
+
+    <label for="email">Email:</label>
+    <input id="email" [(ngModel)]="user.email" name="email">
+
+    <button (click)="save()">Gem</button>
+    <button (click)="toggleEdit()">Annuller</button>
+  </div>
+</div>

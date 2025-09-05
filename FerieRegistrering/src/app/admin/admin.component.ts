@@ -4,12 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { resetUser, User } from '../models/user';
 import { UserService } from '../services/user.service';
 
-// interface User {
-//   id: number;
-//   username: string;
-//   role: string;
-// }
-
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -21,9 +15,6 @@ export class AdminComponent implements OnInit {
   user: User = resetUser();
 
   constructor(private userService: UserService) {}
-
-  // users: User[] = [];
-  // editingUser: User | null = null; // Den bruger vi redigerer
 
   ngOnInit(): void {
     // midlertidigt dummy data (indtil du kobler til backend / DB)
