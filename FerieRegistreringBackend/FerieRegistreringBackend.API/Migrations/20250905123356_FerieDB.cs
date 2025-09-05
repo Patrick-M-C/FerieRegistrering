@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FerieRegistreringBackend.API.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class FerieDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
