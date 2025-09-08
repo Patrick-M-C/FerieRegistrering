@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private user: { isLoggedIn: boolean; isAdmin: boolean } | null = null;
+  private user: { isLoggedIn: boolean; isAdmin: boolean; username: string; password: string } | null = null;
 
   isLoggedIn(): boolean {
     return !!this.user?.isLoggedIn;
@@ -17,8 +17,25 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    this.user = { isLoggedIn: true, isAdmin: username === 'admin' };
-    return of(true);
+    // Simple password check (replace with your logic)
+    const validUsers = {
+      admin: { password: 'admin123', isAdmin: true },
+      user1: { password: 'user123', isAdmin: false },
+      user2: { password: 'pass456', isAdmin: false }
+    };
+
+    const userCredentials = validUsers[username as keyof typeof validUsers];
+
+    if (userCredentials && userCredentials.password === password) {
+      this.user = {
+        isLoggedIn: true,
+        isAdmin: userCredentials.isAdmin,
+        username,
+        password // Store password (optional, see security note below)
+      };
+      return of(true);
+    }
+    return of(false); // Invalid credentials
   }
 
   logout(): void {

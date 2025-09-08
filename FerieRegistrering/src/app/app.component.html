@@ -5,7 +5,16 @@
   <a routerLink="/ferie">Ferie</a>
   <a routerLink="/profile">Profil</a>
 
-  <button (click)="logout()">Log ud</button>
+  <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+  <p>Welcome, {{ auth.getUsername() }}!</p>
+  <button (click)="logout()">Logout</button>
+</ng-container>
+<ng-template #notLoggedIn>
+  <p>Please log in.</p>
+  <!-- Add login form or navigate to login page -->
+</ng-template>
 </nav>
+
+
 
 <router-outlet></router-outlet>
