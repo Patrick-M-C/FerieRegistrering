@@ -1,45 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  getUser(): any {
-      throw new Error('Method not implemented.');
+  private user: { isLoggedIn: boolean; isAdmin: boolean } | null = null;
+
+  // Simuleret login-status (i praksis vil dette tjekke mod en token eller API)
+  isLoggedIn(): boolean {
+    return !!this.user?.isLoggedIn;
   }
-  isLoggedIn = false;
-  currentUser: any = null;
-  users: any[] = [];
 
-  constructor(private router: Router) {}
+  isAdmin(): boolean {
+    return this.isLoggedIn() && this.user?.isAdmin === true;
+  }
 
-  login(username: string, password: string): boolean {
-    if (username === 'Admin' && password === 'Admin') {
-      this.isLoggedIn = true;
-      this.currentUser = { username: 'admin', email: 'admin@example.com', role: 'admin' };
-      this.router.navigate(['/admin']);
-      return true;
-    } else if (username === 'User' && password === 'User') {
-      this.isLoggedIn = true;
-      this.currentUser = { username: 'user', email: 'user@example.com', role: 'user' };
-      this.router.navigate(['/home']);
-      return true;
-    }
-    return false;
+  // Eksempel på login-metode
+  login(username: string, password: string): Observable<boolean> {
+    // Simuleret login-logik
+    this.user = { isLoggedIn: true, isAdmin: username === 'admin' };
+    return of(true);
   }
 
   logout(): void {
-    this.isLoggedIn = false;
-    this.currentUser = null;
-    this.router.navigate(['/login']);
-  }
-
-  getRole(): string | null {
-    return this.currentUser ? this.currentUser.role : null;
-  }
-
-  updateUser(updateUser: any) {
-    this.currentUser = { ...this.currentUser, ...updateUser };
+    this.user = null;
   }
 }
+
