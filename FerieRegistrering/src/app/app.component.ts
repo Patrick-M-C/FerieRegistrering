@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth.service';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,7 +17,7 @@ export class AppComponent {
   constructor(private auth: AuthService) {}
 
   get isLoggedIn(): boolean {
-    return this.auth.isLoggedIn;
+    return this.auth.isLoggedIn();
   }
 
   logout() {

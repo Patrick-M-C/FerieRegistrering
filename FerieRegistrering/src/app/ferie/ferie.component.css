@@ -1,3 +1,4 @@
+
 h1 {
   color: darkgreen;
 }
@@ -20,4 +21,164 @@ button {
 
 button:hover {
   background-color: darkgreen;
+}
+
+.ferie-form {
+  display: grid;
+  grid-template-columns: 120px 1fr; /* labels i venstre kolonne, input i højre */
+  gap: 0.5rem 1rem; /* rækkeafstand, kolonneafstand */
+  max-width: 400px;
+  margin-bottom: 1rem;
+}
+
+.ferie-form label {
+  text-align: right; /* labels højrejusteres mod input */
+  padding-top: 5px;
+}
+
+.ferie-form input,
+.ferie-form textarea,
+.ferie-form button {
+  padding: 0.4rem;
+  font-size: 14px;
+  width: 100%;
+}
+
+.ferie-form button {
+  grid-column: 2; /* knappen rykker ind under inputfeltet */
+  width: fit-content; /* gør knappen smallere */
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-grid div {
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calendar-grid div.available {
+  background-color: #e7ffe7;
+  border: 1px solid #b5e7b5;
+}
+
+.calendar-grid div.reserved {
+  background-color: #ffc7c7;
+  border: 1px solid #ff7b7b;
+}
+
+.ferie-form {
+  display: grid;
+  grid-template-columns: 120px 1fr; /* labels i venstre kolonne, input i højre */
+  gap: 0.5rem 1rem; /* rækkeafstand, kolonneafstand */
+  max-width: 400px;
+  margin-bottom: 1rem;
+}
+
+.ferie-form label {
+  text-align: right; /* labels højrejusteres mod input */
+  padding-top: 5px;
+}
+
+.ferie-form input,
+.ferie-form textarea,
+.ferie-form button {
+  padding: 0.4rem;
+  font-size: 14px;
+  width: 100%;
+}
+
+.ferie-form button {
+  grid-column: 2; /* knappen rykker ind under inputfeltet */
+  width: fit-content; /* gør knappen smallere */
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-grid div {
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calendar-grid div.available {
+  background-color: #e7ffe7;
+  border: 1px solid #b5e7b5;
+}
+
+.calendar-grid div.reserved {
+  background-color: #ffc7c7;
+  border: 1px solid #ff7b7b;
+}
+
+.ferie-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ferie-form input,
+.ferie-form textarea,
+.ferie-form button {
+  padding: 0.4rem;
+  font-size: 14px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-grid div {
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calendar-grid div.available {
+  background-color: #e7ffe7;
+  border: 1px solid #b5e7b5;
+}
+
+.calendar-grid div.reserved {
+  background-color: #ffc7c7;
+  border: 1px solid #ff7b7b;
 }

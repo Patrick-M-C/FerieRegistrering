@@ -1,38 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn = false;
-  currentUser: any = null;
-  users: any[] = [];
+  private user: { isLoggedIn: boolean; isAdmin: boolean; username: string; password: string } | null = null;
 
-  constructor(private router: Router) {}
+  isLoggedIn(): boolean {
+    return !!this.user?.isLoggedIn;
+  }
 
-  login(username: string, password: string): boolean {
-    if (username === 'Admin' && password === 'Admin') {
-      this.isLoggedIn = true;
-      this.currentUser = { username, role: 'admin' };
-      this.router.navigate(['/admin']);
-      return true;
-    } else if (username === 'User' && password === 'User') {
-      this.isLoggedIn = true;
-      this.currentUser = { username, role: 'user' };
-      this.router.navigate(['/home']);
-      return true;
+  isAdmin(): boolean {
+    return this.isLoggedIn() && this.user?.isAdmin === true;
+  }
+
+  login(username: string, password: string): Observable<boolean> {
+    // Simple password check (replace with your logic)
+    const validUsers = {
+      admin: { password: 'admin123', isAdmin: true },
+      user1: { password: 'user123', isAdmin: false },
+      user2: { password: 'pass456', isAdmin: false }
+    };
+
+    const userCredentials = validUsers[username as keyof typeof validUsers];
+
+    if (userCredentials && userCredentials.password === password) {
+      this.user = {
+        isLoggedIn: true,
+        isAdmin: userCredentials.isAdmin,
+        username,
+        password // Store password (optional, see security note below)
+      };
+      return of(true);
     }
-    return false;
+    return of(false); // Invalid credentials
   }
 
   logout(): void {
-    this.isLoggedIn = false;
-    this.currentUser = null;
-    this.router.navigate(['/login']);
-  }
-
-  getRole(): string | null {
-    return this.currentUser ? this.currentUser.role : null;
+    this.user = null;
   }
 }
+

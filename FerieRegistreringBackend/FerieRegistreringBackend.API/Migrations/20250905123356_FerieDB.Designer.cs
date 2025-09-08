@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FerieRegistreringBackend.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250828123423_data")]
-    partial class data
+    [Migration("20250905123356_FerieDB")]
+    partial class FerieDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
