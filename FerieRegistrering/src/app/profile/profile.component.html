@@ -2,21 +2,42 @@
 
 <div *ngIf="user">
   <div *ngIf="!editing">
-    <p><strong>Brugernavn:</strong> {{ user.username }}</p>
+    <p><strong>Fornavn:</strong> {{ user.name }}</p>
+    <p><strong>Efternavn:</strong> {{ user.lastName }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Rolle:</strong> {{ user.role }}</p>
+    <p><strong>Fødselsdato:</strong> {{ user.dateOfBirth | date }}</p>
 
-    <button (click)="toggleEdit()">Rediger</button>
+    <button (click)="toggleEdit()">✏️ Rediger</button>
   </div>
 
-  <div *ngIf="editing">
-    <label for="username">Brugernavn:</label>
-    <input id="username" [(ngModel)]="user.username" name="username">
+  <form *ngIf="editing" (ngSubmit)="save()" class="edit-form">
+    <label>
+      Fornavn:
+      <input [(ngModel)]="user.name" name="name" required />
+    </label>
 
-    <label for="email">Email:</label>
-    <input id="email" [(ngModel)]="user.email" name="email">
+    <label>
+      Efternavn:
+      <input [(ngModel)]="user.lastName" name="lastName" required />
+    </label>
 
-    <button (click)="save()">Gem</button>
-    <button (click)="toggleEdit()">Annuller</button>
-  </div>
+    <label>
+      Email:
+      <input type="email" [(ngModel)]="user.email" name="email" required />
+    </label>
+
+    <label>
+      Fødselsdato:
+      <input type="date" [(ngModel)]="user.dateOfBirth" name="dateOfBirth" />
+    </label>
+
+    <div class="actions">
+      <button type="submit">💾 Gem</button>
+      <button type="button" (click)="toggleEdit()">❌ Annuller</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!user">
+  <p>Ingen brugeroplysninger fundet. Log venligst ind.</p>
 </div>

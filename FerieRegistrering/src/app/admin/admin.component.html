@@ -1,5 +1,33 @@
 <h2>Brugeradministration</h2>
 
+<button (click)="startCreate()">➕ Opret ny bruger</button>
+
+<!-- CREATE POPUP -->
+<div class="modal" *ngIf="creating">
+  <div class="modal-content">
+    <h3>Opret ny bruger</h3>
+
+    <form (ngSubmit)="createUser()">
+      <label>Fornavn:</label>
+      <input type="text" [(ngModel)]="user.name" name="name" required />
+
+      <label>Efternavn:</label>
+      <input type="text" [(ngModel)]="user.lastName" name="lastName" required />
+
+      <label>Email:</label>
+      <input type="email" [(ngModel)]="user.email" name="email" required />
+
+      <label>Fødselsdato:</label>
+      <input type="date" [(ngModel)]="user.dateOfBirth" name="dateOfBirth" />
+
+      <div class="modal-actions">
+        <button type="submit">💾 Gem</button>
+        <button type="button" (click)="cancelCreate()">❌ Annuller</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <ul class="user-list">
   <li *ngFor="let user of users" class="user-item">
     {{ user.name }} {{ user.lastName }} - {{ user.email }} ({{ user.dateOfBirth | date:'dd/MM/yyyy' }})
@@ -10,6 +38,8 @@
     </div>
   </li>
 </ul>
+
+<hr />
 
 <!-- Popup til redigering -->
 <div *ngIf="editingUser" class="popup">
