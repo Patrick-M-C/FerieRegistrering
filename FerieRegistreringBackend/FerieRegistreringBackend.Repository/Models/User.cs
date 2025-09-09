@@ -20,10 +20,8 @@ namespace FerieRegistreringBackend.Repository.Models
         public string Email { get; set; } = string.Empty;
         [Required]
         public DateOnly DateOfBirth { get; set; }
-        [Required]
 
-        [JsonIgnore]
-        
+        [JsonIgnore] 
         public string Password { get; set; } = string.Empty;
 
         [JsonIgnore]
