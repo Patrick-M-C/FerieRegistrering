@@ -1,12 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace FerieRegistreringBackend.Repository.Models
 {
-    internal class Team
+    public class Team
     {
+        public int TeamId { get; set; }
+
+        [Required]
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        public int LeaderUserId { get; set; }
+
+        public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+        public bool IsActive { get; set; } = true;
+
+        // Navigation: medlemmer ( Users )
+        public ICollection<User> Members { get; set; } = new List<User>();
     }
 }
