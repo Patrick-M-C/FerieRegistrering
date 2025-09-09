@@ -21,10 +21,10 @@ export class UserService {
 
   
   updateUser(user: User) {
-    return this.http.put<User>(`/api/User/${user.id}`, user);
+    return this.http.put<User>(`${this.userApiUrl}/${user.id}`, user);
   }
-
+  
   deleteUser(id: number) {
-    return this.http.delete(`/api/User/${id}`);
+    return this.http.delete(`${this.userApiUrl}/${id}`);
   }
 }
