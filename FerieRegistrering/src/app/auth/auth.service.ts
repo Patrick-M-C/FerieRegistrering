@@ -1,53 +1,47 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { LoginRequest } from '../models/login';
+import { HttpClient } from '@angular/common/http';
+import { auth } from '../models/auth';
+import { environment } from '../Environments/environments';
+import { isPlatformBrowser } from '@angular/common';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  private user: { isLoggedIn: boolean; isAdmin: boolean; username: string; password: string } | null = null;
+  private readonly AuthApiUrl = environment.apiUrl + '/Auth';
+  private tokenKey = 'auth_token';
 
-  isLoggedIn(): boolean {
-    return !!this.user?.isLoggedIn;
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  private get canUseStorage(): boolean {
+    return isPlatformBrowser(this.platformId);
   }
 
-  isAdmin(): boolean {
-    return this.isLoggedIn() && this.user?.isAdmin === true;
-  }
-
-  login(username: string, password: string): Observable<boolean> {
-    const validUsers = {
-      admin: { password: 'admin123', isAdmin: true },
-      user1: { password: 'user123', isAdmin: false },
-      user2: { password: 'pass456', isAdmin: false }
-    };
-
-    const userCredentials = validUsers[username as keyof typeof validUsers];
-
-    if (userCredentials && userCredentials.password === password) {
-      this.user = {
-        isLoggedIn: true,
-        isAdmin: userCredentials.isAdmin,
-        username,
-        password
-      };
-      return of(true);
-    }
-    return of(false);
+  login(request: LoginRequest): Observable<auth> {
+    return this.http.post<auth>(`${this.AuthApiUrl}/login`, request).pipe(
+      tap(response => {
+        if (response?.token && this.canUseStorage) {
+          localStorage.setItem(this.tokenKey, response.token);
+        }
+      })
+    );
   }
 
   logout(): void {
-    this.user = null;
-  }
-
-  getUser() {
-    return this.user;
-  }
-
-  updateUser(updatedUser: any) {
-    if (this.user) {
-      this.user = { ...this.user, ...updatedUser };
+    if (this.canUseStorage) {
+      localStorage.removeItem(this.tokenKey);
     }
+  }
+
+  getToken(): string | null {
+    return this.canUseStorage ? localStorage.getItem(this.tokenKey) : null;
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
   }
 }

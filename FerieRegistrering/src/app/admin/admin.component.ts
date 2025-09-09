@@ -14,6 +14,8 @@ import { UserService } from '../services/user.service';
 export class AdminComponent implements OnInit {
   users: User[] = [];
   editingUser: User | null = null;
+  user: User = resetUser();
+  creating = false;
 
   constructor(private userService: UserService) {}
 
@@ -63,5 +65,28 @@ export class AdminComponent implements OnInit {
 
   closeEdit() {
     this.editingUser = null;
+  }
+
+  startCreate() {
+    this.user = resetUser();
+    this.creating = true;
+  }
+
+  // 🔹 Gem ny bruger
+  createUser() {
+    this.userService.createUser(this.user).subscribe({
+      next: (newUser) => {
+        this.users.push(newUser);
+        this.creating = false;
+        this.user = resetUser();
+      },
+      error: (error) => console.error('Error creating user:', error)
+    });
+  }
+
+  // 🔹 Luk create-form
+  cancelCreate() {
+    this.creating = false;
+    this.user = resetUser();
   }
 }
