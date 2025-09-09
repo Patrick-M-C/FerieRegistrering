@@ -17,7 +17,6 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    // Simple password check (replace with your logic)
     const validUsers = {
       admin: { password: 'admin123', isAdmin: true },
       user1: { password: 'user123', isAdmin: false },
@@ -31,15 +30,24 @@ export class AuthService {
         isLoggedIn: true,
         isAdmin: userCredentials.isAdmin,
         username,
-        password // Store password (optional, see security note below)
+        password
       };
       return of(true);
     }
-    return of(false); // Invalid credentials
+    return of(false);
   }
 
   logout(): void {
     this.user = null;
   }
-}
 
+  getUser() {
+    return this.user;
+  }
+
+  updateUser(updatedUser: any) {
+    if (this.user) {
+      this.user = { ...this.user, ...updatedUser };
+    }
+  }
+}

@@ -14,7 +14,7 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent {
   router: any;
   authService: any;
-  constructor(private auth: AuthService) {}
+  constructor(public auth: AuthService) {}
 
   get isLoggedIn(): boolean {
     return this.auth.isLoggedIn();

@@ -6,7 +6,7 @@
   <a routerLink="/profile">Profil</a>
 
   <ng-container *ngIf="isLoggedIn; else notLoggedIn">
-  <p>Welcome, {{ auth.getUsername() }}!</p>
+  <!-- <p>Welcome, {{ auth.getUsername() }}!</p> -->
   <button (click)="logout()">Logout</button>
 </ng-container>
 <ng-template #notLoggedIn>
