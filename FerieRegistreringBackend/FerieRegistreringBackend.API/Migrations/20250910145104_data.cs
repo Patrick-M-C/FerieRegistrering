@@ -131,40 +131,50 @@ namespace FerieRegistreringBackend.API.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Teams",
+                columns: new[] { "TeamId", "CreatedAtUtc", "Description", "IsActive", "LeaderUserId", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 9, 10, 14, 51, 4, 301, DateTimeKind.Utc).AddTicks(6174), "The Springfield team", true, 1, "Springfield" },
+                    { 2, new DateTime(2025, 9, 10, 14, 51, 4, 301, DateTimeKind.Utc).AddTicks(6179), "The Quahog team", true, 4, "Quahog" },
+                    { 3, new DateTime(2025, 9, 10, 14, 51, 4, 301, DateTimeKind.Utc).AddTicks(6247), "The Bikini Bottom team", true, 5, "Bikini Bottom" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DateOfBirth", "Email", "IsActive", "LastName", "Name", "Password", "Role", "TeamId" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(1995, 5, 12), "niklas@example.com", true, "Hansen", "Niklas", "AQAAAAIAAYagAAAAEBFGP99GHeOFv1RbqNRhPVZh1EDPFIKdnyBcTZE2YfkqttQJZPBZc8j/E8QLTIe46w==", 1, null },
-                    { 2, new DateOnly(1980, 5, 19), "frygtsommehund@example.com", true, "Hund", "Frygtløss", "AQAAAAIAAYagAAAAECiNbPyRpeF6AMcwqbwQHRE4+dEyMwUFwo8Ws8M9CibXWX9E6+CYqfRVeJgxkrlbkQ==", 0, null },
-                    { 3, new DateOnly(1956, 5, 12), "homer.simpson@springfield.com", true, "Simpson", "Homer", "AQAAAAIAAYagAAAAEHD+Iu5kZXJZFNZQvpV/3Xfqu4i7WH9dpM9lrAUD/X+lfVDVVeg9xIkKR5rvSl1ZPw==", 0, null },
-                    { 4, new DateOnly(1966, 7, 1), "peter.griffin@quahog.com", true, "Griffin", "Peter", "AQAAAAIAAYagAAAAEJ0uGyidMTTv2xM3V9dF8RQ6ENdjxiufIOc6h+1bJnMRZSq+fAaO5IhnpUo7LmGLmQ==", 1, null },
-                    { 5, new DateOnly(1999, 5, 1), "patrick.star@bikinibottom.com", true, "Star", "Patrick", "AQAAAAIAAYagAAAAENL75a4YAqu9+MYp0RwEnUepRt7M0RNLnPGTRc5KenmlUf7mTQv6jAX9yYiMevwBsQ==", 0, null },
-                    { 6, new DateOnly(2005, 3, 9), "lisa.simpson@springfield.com", true, "Simpson", "Lisa", "AQAAAAIAAYagAAAAEHzRZWhLgmfo8LdmmBTzetq6vn6AQX85O0+hJvzFVshY6fMv41iozGTH9tGwN2VaVQ==", 0, null },
-                    { 7, new DateOnly(1960, 10, 1), "marge.simpson@springfield.com", true, "Simpson", "Marge", "AQAAAAIAAYagAAAAEM/Nhf7/UgD9do3tI7xTK0ejegPA0vKK1HHz8qmkb3pupqlJ6PR/w3gEwbXXOTHJjg==", 0, null },
-                    { 8, new DateOnly(2018, 7, 14), "stewie.griffin@quahog.com", true, "Griffin", "Stewie", "AQAAAAIAAYagAAAAEKH0GMuorOP3SeWcaBJH2cvDhuIzYL+Qf9i8HJll7tw8iICqs8BpgHG0QTfr4yy2Ow==", 0, null },
-                    { 9, new DateOnly(2010, 11, 2), "brian.griffin@quahog.com", true, "Griffin", "Brian", "AQAAAAIAAYagAAAAEGiGumEqdtfEcqzM60SFXeVHpdPj3vhCC4cKawaYysM+CBX21FXPktLGFQduKTjInQ==", 1, null },
-                    { 10, new DateOnly(1990, 6, 18), "sandy.cheeks@bikinibottom.com", true, "Cheeks", "Sandy", "AQAAAAIAAYagAAAAEISzNeLOu7H63JPstwI4oge/s1PXuYF/m3o0UdpG+1ZR28lXUl050lRdeyn10K31ow==", 0, null },
-                    { 11, new DateOnly(1982, 4, 10), "squidward@bikinibottom.com", true, "Tentacles", "Squidward", "AQAAAAIAAYagAAAAEPHVWGQ3agIzCw/VkuFKNSC6MJc/PJd1fPrCOu4phvJvjsxxofBz7KnQvsYhOBwFpg==", 0, null },
-                    { 12, new DateOnly(1970, 7, 5), "mr.krabs@bikinibottom.com", true, "Krabs", "Mr", "AQAAAAIAAYagAAAAECMh9VhVuMCSCZRZhESrchVvspRau+lyHR8CEMP7SwYzlcoc/bngd/Zeq27HWjB+eg==", 0, null },
-                    { 13, new DateOnly(1972, 8, 22), "plankton@bikinibottom.com", true, "Plankton", "Sheldon", "AQAAAAIAAYagAAAAECgy5cYeZdOZ69AepbaRxI6VjhCrbGOnJUGgt8EUTcD9fL6eTbeJixeOuUYex8J4+g==", 0, null },
-                    { 14, new DateOnly(2007, 4, 1), "bart.simpson@springfield.com", true, "Simpson", "Bart", "AQAAAAIAAYagAAAAEGweDVa90wqzUX06Uk0KiBh23ircw15os8AGhvBdlohb9Es4iOdCTrqhmSuFYvxfag==", 0, null },
-                    { 15, new DateOnly(2003, 8, 21), "meg.griffin@quahog.com", true, "Griffin", "Meg", "AQAAAAIAAYagAAAAEBLgwDod2048GGwddpF67tOXmJzzX3jibQYDWdg+QfAIHmRMv6zJzNbHKN90E72bIw==", 0, null },
-                    { 16, new DateOnly(1975, 3, 3), "lois.griffin@quahog.com", true, "Griffin", "Lois", "AQAAAAIAAYagAAAAEOjzd2o/q2ETPNzTagShgVIY5t7LbaSxxHP22KCIxL9zPp2QZKgG4j50NWck3RtUwg==", 0, null },
-                    { 17, new DateOnly(2001, 2, 12), "chris.griffin@quahog.com", true, "Griffin", "Chris", "AQAAAAIAAYagAAAAEBd2i6pTU89vg2pogW7JiD1GxUgatfXyctAmCsa0j9wrG5IlF2D+KOWAHO5M/znFbQ==", 0, null },
-                    { 18, new DateOnly(1965, 2, 9), "ned.flanders@springfield.com", true, "Flanders", "Ned", "AQAAAAIAAYagAAAAEMpoQrLdbMaTpF3JuxN4EzAkaoiMZ2JjFQHpoALHXQOlG8LmmML/s1L+6s8wwlBj3w==", 0, null },
-                    { 19, new DateOnly(1963, 11, 5), "moe.szyslak@springfield.com", true, "Szyslak", "Moe", "AQAAAAIAAYagAAAAELAt3LNVCU2ZbsMRZb61y1+c6hkJkswl+o8SL0xWZ2mXXQIQ34o4/XKg6qh0hVg2+w==", 0, null },
-                    { 20, new DateOnly(1970, 4, 14), "carl.carlson@springfield.com", true, "Carlson", "Carl", "AQAAAAIAAYagAAAAEFZ1Jsrzr6gfI9X+OdaAWZbC041eSfmY0A/DwNhFPl39Y7ebRf16PeRLwSs4/vCTQQ==", 0, null },
-                    { 21, new DateOnly(1970, 6, 6), "lenny.leonard@springfield.com", true, "Leonard", "Lenny", "AQAAAAIAAYagAAAAEMLQr68QsLjM/6hfETQ9lJ+Yv59r/Q/VfL3d3K9oj4YHKAc5vjy0kDSHY5MNwK54mA==", 0, null },
-                    { 22, new DateOnly(1930, 9, 15), "mr.burns@springfield.com", true, "Burns", "Mr", "AQAAAAIAAYagAAAAEEbwXy5Xt0iMHW2iEiuDUhVmaKNoynOF9By36FS/1k9TGZt0YibXV2iPBiLJ51uEfQ==", 1, null },
-                    { 23, new DateOnly(1968, 7, 30), "smithers@springfield.com", true, "Smithers", "Waylon", "AQAAAAIAAYagAAAAENbG6uuasqx5LowoxcwBggcjChwrqGcHPDvkzICs9TQn4G5Wb0MvwCrrM4kXBEyC6g==", 0, null },
-                    { 24, new DateOnly(2012, 2, 14), "ralph.wiggum@springfield.com", true, "Wiggum", "Ralph", "AQAAAAIAAYagAAAAEBUkhqIkBcoWHsg1Fv2j1BHLpZei9nheUJ4gHQJpT9LzA0dnNM+BGxgeKtSTobdb0A==", 0, null },
-                    { 25, new DateOnly(1971, 12, 7), "apu@springfield.com", true, "Nahasapeemapetilon", "Apu", "AQAAAAIAAYagAAAAECFbc0WTYflUnjLxVu3FBNubPm1wE2nOK3PUPvYz5JKK9z/1sAkSInkwzUP4HuxekA==", 0, null },
-                    { 26, new DateOnly(2006, 7, 1), "milhouse@springfield.com", true, "Van Houten", "Milhouse", "AQAAAAIAAYagAAAAENUsPfVEbp/L2caUKowVTxhBW8XE0CY6/M2TJJqThtrBgnvD4xxJMZ2Mn+NxYfGTHQ==", 0, null },
-                    { 27, new DateOnly(1975, 1, 1), "comic.bookguy@springfield.com", true, "Book Guy", "Comic", "AQAAAAIAAYagAAAAECZqcUSH4yvQ2K5SZqFlkfyLlhVo0e3JASKTAN38DOKP9mj3EHtEmuFVVW2ulwTWoQ==", 0, null },
-                    { 28, new DateOnly(1960, 11, 1), "edna.krabappel@springfield.com", true, "Krabappel", "Edna", "AQAAAAIAAYagAAAAECbxXTOd07IZXYJ8IZdGx5ty355VRn8cJSA4pBlzcXdsWKOukusJvIcOtXMpFjBDcw==", 0, null },
-                    { 29, new DateOnly(1961, 5, 30), "seymour.skinner@springfield.com", true, "Skinner", "Principal", "AQAAAAIAAYagAAAAEKOZMCMy1ToUqdYzW1arFzioWoMbr6WXG2hka2csLhdqYt70IAW2lQv6z5uv7vsdGA==", 0, null },
-                    { 30, new DateOnly(1962, 6, 1), "willie@springfield.com", true, "Willie", "Groundskeeper", "AQAAAAIAAYagAAAAEJKCBHX5XtbVtb33fVoW2omElYtVEcSXzrdvd/RLr/AiTHQNrWD3h+1AVYKbJ9Ew7g==", 0, null }
+                    { 1, new DateOnly(1995, 5, 12), "niklas@example.com", true, "Hansen", "Niklas", "AQAAAAIAAYagAAAAEFaud54Hyvtkep5p2uHHuUXJB/+fHM1yIBONCJgc2Hpz0OwlnfBuds8EqL7eVDpZWg==", 1, null },
+                    { 2, new DateOnly(1980, 5, 19), "frygtsommehund@example.com", true, "Hund", "Frygtløss", "AQAAAAIAAYagAAAAEMsaeL9m8WhE57l9D/h2AaQMVXpGxwDgc4TOiGZ8BklPz2HPBKS8CkCTD1eCRTKbqg==", 0, null },
+                    { 6, new DateOnly(2005, 3, 9), "lisa.simpson@springfield.com", true, "Simpson", "Lisa", "AQAAAAIAAYagAAAAEBkRUi7DNHTEkKhyPXbf5RpUM7YAgVssuGuohHu1z+aeft9YfwcNMnPCEWMx6S7Exw==", 0, null },
+                    { 15, new DateOnly(2003, 8, 21), "meg.griffin@quahog.com", true, "Griffin", "Meg", "AQAAAAIAAYagAAAAEOUH123hkpe5kNrbC3rjPHzLH96Kc2LIVfs5DwSvkQWOfUU3Bz1a4vgCbFClF+HccA==", 0, null },
+                    { 17, new DateOnly(2001, 2, 12), "chris.griffin@quahog.com", true, "Griffin", "Chris", "AQAAAAIAAYagAAAAEB+iivApc3AoIsyjkprrsJzMRq6e2+J0ILu03/999Yw9S4+j3AjSAEls7kUCF2Qh3A==", 0, null },
+                    { 18, new DateOnly(1965, 2, 9), "ned.flanders@springfield.com", true, "Flanders", "Ned", "AQAAAAIAAYagAAAAEEuFeIHIdm4rhhrQRmdYLm3LG1jsUDQn+g+j1+u8iArQchGH4FY899wexCLQRi9SVA==", 0, null },
+                    { 19, new DateOnly(1963, 11, 5), "moe.szyslak@springfield.com", true, "Szyslak", "Moe", "AQAAAAIAAYagAAAAENWVb3jfA+2VD0hc8srTILQ3YETIzTCW6ptvsrE4eAucnALvxZ/yQBs1lxGbuBrTQw==", 0, null },
+                    { 20, new DateOnly(1970, 4, 14), "carl.carlson@springfield.com", true, "Carlson", "Carl", "AQAAAAIAAYagAAAAEIPX2JR3pbtLWauHXbto9iwnWXBjwuyaZSf7JpqBOS7E5AOP52qP+p0PCqTLPrLf2g==", 0, null },
+                    { 21, new DateOnly(1970, 6, 6), "lenny.leonard@springfield.com", true, "Leonard", "Lenny", "AQAAAAIAAYagAAAAEOP1XeH+IHYsmoFzbMUaIzU2Cybkjv8TUl+2II/7q/jys23NA56KUf211T8tzO6FyQ==", 0, null },
+                    { 22, new DateOnly(1930, 9, 15), "mr.burns@springfield.com", true, "Burns", "Mr", "AQAAAAIAAYagAAAAEFHl6aRWw1DvYsekbtU+hdBeLjOuMJISKe+XoUmbwk5rh2XS+pjG/og65056uh9GEQ==", 1, null },
+                    { 23, new DateOnly(1968, 7, 30), "smithers@springfield.com", true, "Smithers", "Waylon", "AQAAAAIAAYagAAAAEP/3/tFdJUjIL7rnB+ZdwgWthhOsw1j8RfQrKfN8v2neLl8oeo4OaUcWRouO8S9efg==", 0, null },
+                    { 24, new DateOnly(2012, 2, 14), "ralph.wiggum@springfield.com", true, "Wiggum", "Ralph", "AQAAAAIAAYagAAAAEBliMOPllQv5aNwI/F04objYVV8mwApXJAFMh6OpHcq7uDeMsTTjZJVHLBn3uN9Umg==", 0, null },
+                    { 25, new DateOnly(1971, 12, 7), "apu@springfield.com", true, "Nahasapeemapetilon", "Apu", "AQAAAAIAAYagAAAAEIfKTxCsBxJYeSe7qO0BbcQG83su2A6d9U9PamaRjjUmKqCA447aSqCqh1/SYqY22Q==", 0, null },
+                    { 26, new DateOnly(2006, 7, 1), "milhouse@springfield.com", true, "Van Houten", "Milhouse", "AQAAAAIAAYagAAAAEP7ISTjKQc7y3oto2awu7Ebe2g5tl/wPS/YpUpxJjyjhvOLqYW41p6r+9JrF0OBJ/A==", 0, null },
+                    { 27, new DateOnly(1975, 1, 1), "comic.bookguy@springfield.com", true, "Book Guy", "Comic", "AQAAAAIAAYagAAAAEJH7wmHm7McHtdAk/8lI3FpRMZkblkuDfZf71iP/R0yJBpt22qr+uCYDMT1jTn1yzg==", 0, null },
+                    { 28, new DateOnly(1960, 11, 1), "edna.krabappel@springfield.com", true, "Krabappel", "Edna", "AQAAAAIAAYagAAAAELickf6Ol98vwSnlTJWKtmWFkP4U3ohJP7tjnJCLvz0H1N2U5QxCgTIol5fM7FXPdA==", 0, null },
+                    { 29, new DateOnly(1961, 5, 30), "seymour.skinner@springfield.com", true, "Skinner", "Principal", "AQAAAAIAAYagAAAAEJ/Wr0PLhlNcwwrpPHvxe0uJGQDzoXQ0VsLCw+cFw+Xb9esH1QP4+ZUihwJi48h0NQ==", 0, null },
+                    { 30, new DateOnly(1962, 6, 1), "willie@springfield.com", true, "Willie", "Groundskeeper", "AQAAAAIAAYagAAAAEGD1Pduxcg6Fi4tnQmVZM2mWYSonTOG+rvDMo2+2h1rRwMZwdYlZiiZw9aeAEBQJ8Q==", 0, null },
+                    { 3, new DateOnly(1956, 5, 12), "homer.simpson@springfield.com", true, "Simpson", "Homer", "AQAAAAIAAYagAAAAEGtZuzq8q9I3oMwtfjs/V8RNuhoHiG9nFjT1vndbqkk3Zufsy2H6yZ3a1fv2dbb2Cg==", 1, 1 },
+                    { 4, new DateOnly(1966, 7, 1), "peter.griffin@quahog.com", true, "Griffin", "Peter", "AQAAAAIAAYagAAAAEG6NMO7aX4Uv4cD8qYj4hiTYLINHorf6fmQziVdozpt1maJmibw5fRQTj396XxU2PQ==", 1, 2 },
+                    { 5, new DateOnly(1999, 5, 1), "patrick.star@bikinibottom.com", true, "Star", "Patrick", "AQAAAAIAAYagAAAAELM674PItqQQO/pxOP0qh3V0k4z/5fEnPNl0/jvfKMaeed+fF5oHnzZJebHZ/BL7oQ==", 0, 3 },
+                    { 7, new DateOnly(1960, 10, 1), "marge.simpson@springfield.com", true, "Simpson", "Marge", "AQAAAAIAAYagAAAAEDkkWdarHBa6iQhuvXmiUmv2TYq38RFac2us/bXve/A8DI3Ago4LDB3R+f3oniaUOQ==", 0, 1 },
+                    { 8, new DateOnly(2018, 7, 14), "stewie.griffin@quahog.com", true, "Griffin", "Stewie", "AQAAAAIAAYagAAAAEKbu6C+J6AWO2I660871Fpg20vABXLRI8qlOmRjA2Qh+8fy/vW9vmDlQvc03aggRQQ==", 0, 2 },
+                    { 9, new DateOnly(2010, 11, 2), "brian.griffin@quahog.com", true, "Griffin", "Brian", "AQAAAAIAAYagAAAAEN+7Bq1qGsmmi2sRSB+vpkvq1zOztGy7oApuwBhiroPk2b8XFY0KECF9fbIo7yNCpg==", 1, 2 },
+                    { 10, new DateOnly(1990, 6, 18), "sandy.cheeks@bikinibottom.com", true, "Cheeks", "Sandy", "AQAAAAIAAYagAAAAEK8RSVyz05f0FqPW1mxB4eFZ7EfbKsK1/1qdX5XUc3NLo0m9gK9mSbe8HDrdbJ84Mw==", 0, 3 },
+                    { 11, new DateOnly(1982, 4, 10), "squidward@bikinibottom.com", true, "Tentacles", "Squidward", "AQAAAAIAAYagAAAAEHXcyoPF1k3n1IA6xTEEExk5gOWOllah3tvOJdlPav+aoc82eZGWQ2p+Qn95kkvGgw==", 0, 3 },
+                    { 12, new DateOnly(1970, 7, 5), "mr.krabs@bikinibottom.com", true, "Krabs", "Mr", "AQAAAAIAAYagAAAAEIf8eTDlmKtrb1HRtlS1CMEP1WhgTwzFB9FR/Iw9y9hrLHCM0pIGPsCura1SfLWovA==", 1, 3 },
+                    { 13, new DateOnly(1972, 8, 22), "plankton@bikinibottom.com", true, "Plankton", "Sheldon", "AQAAAAIAAYagAAAAEPkseQGWfbShg+J2LAgkyD5BJpvJKojxPsayVFHHr3EHD0BmRhcq64dobTuYJ011ng==", 0, 3 },
+                    { 14, new DateOnly(2007, 4, 1), "bart.simpson@springfield.com", true, "Simpson", "Bart", "AQAAAAIAAYagAAAAENapsashro3wrZRhASRVYKC76QDeYfceTpPkfZZlAMPyZwkoJ61s43mcEbAM+lQ+VQ==", 0, 1 },
+                    { 16, new DateOnly(1975, 3, 3), "lois.griffin@quahog.com", true, "Griffin", "Lois", "AQAAAAIAAYagAAAAEFZuYT6CKN9XF+Ld/9o0Pe3VOBh/0PetpbmOAEjy1s9bRcK/ffjcyIlYafxziLLbDw==", 0, 2 }
                 });
 
             migrationBuilder.CreateIndex(

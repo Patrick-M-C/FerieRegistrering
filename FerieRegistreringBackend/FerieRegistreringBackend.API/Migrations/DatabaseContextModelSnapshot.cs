@@ -80,6 +80,35 @@ namespace FerieRegistreringBackend.API.Migrations
                     b.HasKey("TeamId");
 
                     b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamId = 1,
+                            CreatedAtUtc = new DateTime(2025, 9, 10, 14, 51, 4, 301, DateTimeKind.Utc).AddTicks(6174),
+                            Description = "The Springfield team",
+                            IsActive = true,
+                            LeaderUserId = 1,
+                            Name = "Springfield"
+                        },
+                        new
+                        {
+                            TeamId = 2,
+                            CreatedAtUtc = new DateTime(2025, 9, 10, 14, 51, 4, 301, DateTimeKind.Utc).AddTicks(6179),
+                            Description = "The Quahog team",
+                            IsActive = true,
+                            LeaderUserId = 4,
+                            Name = "Quahog"
+                        },
+                        new
+                        {
+                            TeamId = 3,
+                            CreatedAtUtc = new DateTime(2025, 9, 10, 14, 51, 4, 301, DateTimeKind.Utc).AddTicks(6247),
+                            Description = "The Bikini Bottom team",
+                            IsActive = true,
+                            LeaderUserId = 5,
+                            Name = "Bikini Bottom"
+                        });
                 });
 
             modelBuilder.Entity("FerieRegistreringBackend.Repository.Models.TimeEntry", b =>
@@ -164,7 +193,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Hansen",
                             Name = "Niklas",
-                            Password = "AQAAAAIAAYagAAAAEBFGP99GHeOFv1RbqNRhPVZh1EDPFIKdnyBcTZE2YfkqttQJZPBZc8j/E8QLTIe46w==",
+                            Password = "AQAAAAIAAYagAAAAEFaud54Hyvtkep5p2uHHuUXJB/+fHM1yIBONCJgc2Hpz0OwlnfBuds8EqL7eVDpZWg==",
                             Role = 1
                         },
                         new
@@ -175,7 +204,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Hund",
                             Name = "Frygtløss",
-                            Password = "AQAAAAIAAYagAAAAECiNbPyRpeF6AMcwqbwQHRE4+dEyMwUFwo8Ws8M9CibXWX9E6+CYqfRVeJgxkrlbkQ==",
+                            Password = "AQAAAAIAAYagAAAAEMsaeL9m8WhE57l9D/h2AaQMVXpGxwDgc4TOiGZ8BklPz2HPBKS8CkCTD1eCRTKbqg==",
                             Role = 0
                         },
                         new
@@ -186,8 +215,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Simpson",
                             Name = "Homer",
-                            Password = "AQAAAAIAAYagAAAAEHD+Iu5kZXJZFNZQvpV/3Xfqu4i7WH9dpM9lrAUD/X+lfVDVVeg9xIkKR5rvSl1ZPw==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEGtZuzq8q9I3oMwtfjs/V8RNuhoHiG9nFjT1vndbqkk3Zufsy2H6yZ3a1fv2dbb2Cg==",
+                            Role = 1,
+                            TeamId = 1
                         },
                         new
                         {
@@ -197,8 +227,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Griffin",
                             Name = "Peter",
-                            Password = "AQAAAAIAAYagAAAAEJ0uGyidMTTv2xM3V9dF8RQ6ENdjxiufIOc6h+1bJnMRZSq+fAaO5IhnpUo7LmGLmQ==",
-                            Role = 1
+                            Password = "AQAAAAIAAYagAAAAEG6NMO7aX4Uv4cD8qYj4hiTYLINHorf6fmQziVdozpt1maJmibw5fRQTj396XxU2PQ==",
+                            Role = 1,
+                            TeamId = 2
                         },
                         new
                         {
@@ -208,8 +239,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Star",
                             Name = "Patrick",
-                            Password = "AQAAAAIAAYagAAAAENL75a4YAqu9+MYp0RwEnUepRt7M0RNLnPGTRc5KenmlUf7mTQv6jAX9yYiMevwBsQ==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAELM674PItqQQO/pxOP0qh3V0k4z/5fEnPNl0/jvfKMaeed+fF5oHnzZJebHZ/BL7oQ==",
+                            Role = 0,
+                            TeamId = 3
                         },
                         new
                         {
@@ -219,7 +251,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Simpson",
                             Name = "Lisa",
-                            Password = "AQAAAAIAAYagAAAAEHzRZWhLgmfo8LdmmBTzetq6vn6AQX85O0+hJvzFVshY6fMv41iozGTH9tGwN2VaVQ==",
+                            Password = "AQAAAAIAAYagAAAAEBkRUi7DNHTEkKhyPXbf5RpUM7YAgVssuGuohHu1z+aeft9YfwcNMnPCEWMx6S7Exw==",
                             Role = 0
                         },
                         new
@@ -230,8 +262,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Simpson",
                             Name = "Marge",
-                            Password = "AQAAAAIAAYagAAAAEM/Nhf7/UgD9do3tI7xTK0ejegPA0vKK1HHz8qmkb3pupqlJ6PR/w3gEwbXXOTHJjg==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEDkkWdarHBa6iQhuvXmiUmv2TYq38RFac2us/bXve/A8DI3Ago4LDB3R+f3oniaUOQ==",
+                            Role = 0,
+                            TeamId = 1
                         },
                         new
                         {
@@ -241,8 +274,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Griffin",
                             Name = "Stewie",
-                            Password = "AQAAAAIAAYagAAAAEKH0GMuorOP3SeWcaBJH2cvDhuIzYL+Qf9i8HJll7tw8iICqs8BpgHG0QTfr4yy2Ow==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEKbu6C+J6AWO2I660871Fpg20vABXLRI8qlOmRjA2Qh+8fy/vW9vmDlQvc03aggRQQ==",
+                            Role = 0,
+                            TeamId = 2
                         },
                         new
                         {
@@ -252,8 +286,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Griffin",
                             Name = "Brian",
-                            Password = "AQAAAAIAAYagAAAAEGiGumEqdtfEcqzM60SFXeVHpdPj3vhCC4cKawaYysM+CBX21FXPktLGFQduKTjInQ==",
-                            Role = 1
+                            Password = "AQAAAAIAAYagAAAAEN+7Bq1qGsmmi2sRSB+vpkvq1zOztGy7oApuwBhiroPk2b8XFY0KECF9fbIo7yNCpg==",
+                            Role = 1,
+                            TeamId = 2
                         },
                         new
                         {
@@ -263,8 +298,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Cheeks",
                             Name = "Sandy",
-                            Password = "AQAAAAIAAYagAAAAEISzNeLOu7H63JPstwI4oge/s1PXuYF/m3o0UdpG+1ZR28lXUl050lRdeyn10K31ow==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEK8RSVyz05f0FqPW1mxB4eFZ7EfbKsK1/1qdX5XUc3NLo0m9gK9mSbe8HDrdbJ84Mw==",
+                            Role = 0,
+                            TeamId = 3
                         },
                         new
                         {
@@ -274,8 +310,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Tentacles",
                             Name = "Squidward",
-                            Password = "AQAAAAIAAYagAAAAEPHVWGQ3agIzCw/VkuFKNSC6MJc/PJd1fPrCOu4phvJvjsxxofBz7KnQvsYhOBwFpg==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEHXcyoPF1k3n1IA6xTEEExk5gOWOllah3tvOJdlPav+aoc82eZGWQ2p+Qn95kkvGgw==",
+                            Role = 0,
+                            TeamId = 3
                         },
                         new
                         {
@@ -285,8 +322,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Krabs",
                             Name = "Mr",
-                            Password = "AQAAAAIAAYagAAAAECMh9VhVuMCSCZRZhESrchVvspRau+lyHR8CEMP7SwYzlcoc/bngd/Zeq27HWjB+eg==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEIf8eTDlmKtrb1HRtlS1CMEP1WhgTwzFB9FR/Iw9y9hrLHCM0pIGPsCura1SfLWovA==",
+                            Role = 1,
+                            TeamId = 3
                         },
                         new
                         {
@@ -296,8 +334,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Plankton",
                             Name = "Sheldon",
-                            Password = "AQAAAAIAAYagAAAAECgy5cYeZdOZ69AepbaRxI6VjhCrbGOnJUGgt8EUTcD9fL6eTbeJixeOuUYex8J4+g==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEPkseQGWfbShg+J2LAgkyD5BJpvJKojxPsayVFHHr3EHD0BmRhcq64dobTuYJ011ng==",
+                            Role = 0,
+                            TeamId = 3
                         },
                         new
                         {
@@ -307,8 +346,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Simpson",
                             Name = "Bart",
-                            Password = "AQAAAAIAAYagAAAAEGweDVa90wqzUX06Uk0KiBh23ircw15os8AGhvBdlohb9Es4iOdCTrqhmSuFYvxfag==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAENapsashro3wrZRhASRVYKC76QDeYfceTpPkfZZlAMPyZwkoJ61s43mcEbAM+lQ+VQ==",
+                            Role = 0,
+                            TeamId = 1
                         },
                         new
                         {
@@ -318,7 +358,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Griffin",
                             Name = "Meg",
-                            Password = "AQAAAAIAAYagAAAAEBLgwDod2048GGwddpF67tOXmJzzX3jibQYDWdg+QfAIHmRMv6zJzNbHKN90E72bIw==",
+                            Password = "AQAAAAIAAYagAAAAEOUH123hkpe5kNrbC3rjPHzLH96Kc2LIVfs5DwSvkQWOfUU3Bz1a4vgCbFClF+HccA==",
                             Role = 0
                         },
                         new
@@ -329,8 +369,9 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Griffin",
                             Name = "Lois",
-                            Password = "AQAAAAIAAYagAAAAEOjzd2o/q2ETPNzTagShgVIY5t7LbaSxxHP22KCIxL9zPp2QZKgG4j50NWck3RtUwg==",
-                            Role = 0
+                            Password = "AQAAAAIAAYagAAAAEFZuYT6CKN9XF+Ld/9o0Pe3VOBh/0PetpbmOAEjy1s9bRcK/ffjcyIlYafxziLLbDw==",
+                            Role = 0,
+                            TeamId = 2
                         },
                         new
                         {
@@ -340,7 +381,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Griffin",
                             Name = "Chris",
-                            Password = "AQAAAAIAAYagAAAAEBd2i6pTU89vg2pogW7JiD1GxUgatfXyctAmCsa0j9wrG5IlF2D+KOWAHO5M/znFbQ==",
+                            Password = "AQAAAAIAAYagAAAAEB+iivApc3AoIsyjkprrsJzMRq6e2+J0ILu03/999Yw9S4+j3AjSAEls7kUCF2Qh3A==",
                             Role = 0
                         },
                         new
@@ -351,7 +392,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Flanders",
                             Name = "Ned",
-                            Password = "AQAAAAIAAYagAAAAEMpoQrLdbMaTpF3JuxN4EzAkaoiMZ2JjFQHpoALHXQOlG8LmmML/s1L+6s8wwlBj3w==",
+                            Password = "AQAAAAIAAYagAAAAEEuFeIHIdm4rhhrQRmdYLm3LG1jsUDQn+g+j1+u8iArQchGH4FY899wexCLQRi9SVA==",
                             Role = 0
                         },
                         new
@@ -362,7 +403,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Szyslak",
                             Name = "Moe",
-                            Password = "AQAAAAIAAYagAAAAELAt3LNVCU2ZbsMRZb61y1+c6hkJkswl+o8SL0xWZ2mXXQIQ34o4/XKg6qh0hVg2+w==",
+                            Password = "AQAAAAIAAYagAAAAENWVb3jfA+2VD0hc8srTILQ3YETIzTCW6ptvsrE4eAucnALvxZ/yQBs1lxGbuBrTQw==",
                             Role = 0
                         },
                         new
@@ -373,7 +414,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Carlson",
                             Name = "Carl",
-                            Password = "AQAAAAIAAYagAAAAEFZ1Jsrzr6gfI9X+OdaAWZbC041eSfmY0A/DwNhFPl39Y7ebRf16PeRLwSs4/vCTQQ==",
+                            Password = "AQAAAAIAAYagAAAAEIPX2JR3pbtLWauHXbto9iwnWXBjwuyaZSf7JpqBOS7E5AOP52qP+p0PCqTLPrLf2g==",
                             Role = 0
                         },
                         new
@@ -384,7 +425,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Leonard",
                             Name = "Lenny",
-                            Password = "AQAAAAIAAYagAAAAEMLQr68QsLjM/6hfETQ9lJ+Yv59r/Q/VfL3d3K9oj4YHKAc5vjy0kDSHY5MNwK54mA==",
+                            Password = "AQAAAAIAAYagAAAAEOP1XeH+IHYsmoFzbMUaIzU2Cybkjv8TUl+2II/7q/jys23NA56KUf211T8tzO6FyQ==",
                             Role = 0
                         },
                         new
@@ -395,7 +436,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Burns",
                             Name = "Mr",
-                            Password = "AQAAAAIAAYagAAAAEEbwXy5Xt0iMHW2iEiuDUhVmaKNoynOF9By36FS/1k9TGZt0YibXV2iPBiLJ51uEfQ==",
+                            Password = "AQAAAAIAAYagAAAAEFHl6aRWw1DvYsekbtU+hdBeLjOuMJISKe+XoUmbwk5rh2XS+pjG/og65056uh9GEQ==",
                             Role = 1
                         },
                         new
@@ -406,7 +447,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Smithers",
                             Name = "Waylon",
-                            Password = "AQAAAAIAAYagAAAAENbG6uuasqx5LowoxcwBggcjChwrqGcHPDvkzICs9TQn4G5Wb0MvwCrrM4kXBEyC6g==",
+                            Password = "AQAAAAIAAYagAAAAEP/3/tFdJUjIL7rnB+ZdwgWthhOsw1j8RfQrKfN8v2neLl8oeo4OaUcWRouO8S9efg==",
                             Role = 0
                         },
                         new
@@ -417,7 +458,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Wiggum",
                             Name = "Ralph",
-                            Password = "AQAAAAIAAYagAAAAEBUkhqIkBcoWHsg1Fv2j1BHLpZei9nheUJ4gHQJpT9LzA0dnNM+BGxgeKtSTobdb0A==",
+                            Password = "AQAAAAIAAYagAAAAEBliMOPllQv5aNwI/F04objYVV8mwApXJAFMh6OpHcq7uDeMsTTjZJVHLBn3uN9Umg==",
                             Role = 0
                         },
                         new
@@ -428,7 +469,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Nahasapeemapetilon",
                             Name = "Apu",
-                            Password = "AQAAAAIAAYagAAAAECFbc0WTYflUnjLxVu3FBNubPm1wE2nOK3PUPvYz5JKK9z/1sAkSInkwzUP4HuxekA==",
+                            Password = "AQAAAAIAAYagAAAAEIfKTxCsBxJYeSe7qO0BbcQG83su2A6d9U9PamaRjjUmKqCA447aSqCqh1/SYqY22Q==",
                             Role = 0
                         },
                         new
@@ -439,7 +480,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Van Houten",
                             Name = "Milhouse",
-                            Password = "AQAAAAIAAYagAAAAENUsPfVEbp/L2caUKowVTxhBW8XE0CY6/M2TJJqThtrBgnvD4xxJMZ2Mn+NxYfGTHQ==",
+                            Password = "AQAAAAIAAYagAAAAEP7ISTjKQc7y3oto2awu7Ebe2g5tl/wPS/YpUpxJjyjhvOLqYW41p6r+9JrF0OBJ/A==",
                             Role = 0
                         },
                         new
@@ -450,7 +491,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Book Guy",
                             Name = "Comic",
-                            Password = "AQAAAAIAAYagAAAAECZqcUSH4yvQ2K5SZqFlkfyLlhVo0e3JASKTAN38DOKP9mj3EHtEmuFVVW2ulwTWoQ==",
+                            Password = "AQAAAAIAAYagAAAAEJH7wmHm7McHtdAk/8lI3FpRMZkblkuDfZf71iP/R0yJBpt22qr+uCYDMT1jTn1yzg==",
                             Role = 0
                         },
                         new
@@ -461,7 +502,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Krabappel",
                             Name = "Edna",
-                            Password = "AQAAAAIAAYagAAAAECbxXTOd07IZXYJ8IZdGx5ty355VRn8cJSA4pBlzcXdsWKOukusJvIcOtXMpFjBDcw==",
+                            Password = "AQAAAAIAAYagAAAAELickf6Ol98vwSnlTJWKtmWFkP4U3ohJP7tjnJCLvz0H1N2U5QxCgTIol5fM7FXPdA==",
                             Role = 0
                         },
                         new
@@ -472,7 +513,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Skinner",
                             Name = "Principal",
-                            Password = "AQAAAAIAAYagAAAAEKOZMCMy1ToUqdYzW1arFzioWoMbr6WXG2hka2csLhdqYt70IAW2lQv6z5uv7vsdGA==",
+                            Password = "AQAAAAIAAYagAAAAEJ/Wr0PLhlNcwwrpPHvxe0uJGQDzoXQ0VsLCw+cFw+Xb9esH1QP4+ZUihwJi48h0NQ==",
                             Role = 0
                         },
                         new
@@ -483,7 +524,7 @@ namespace FerieRegistreringBackend.API.Migrations
                             IsActive = true,
                             LastName = "Willie",
                             Name = "Groundskeeper",
-                            Password = "AQAAAAIAAYagAAAAEJKCBHX5XtbVtb33fVoW2omElYtVEcSXzrdvd/RLr/AiTHQNrWD3h+1AVYKbJ9Ew7g==",
+                            Password = "AQAAAAIAAYagAAAAEGD1Pduxcg6Fi4tnQmVZM2mWYSonTOG+rvDMo2+2h1rRwMZwdYlZiiZw9aeAEBQJ8Q==",
                             Role = 0
                         });
                 });
