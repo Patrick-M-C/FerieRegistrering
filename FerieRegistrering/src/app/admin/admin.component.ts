@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { resetUser, User } from '../models/user';
 import { UserService } from '../services/user.service';
-import { Team } from '../models/team';                
-import { TeamService } from '../services/team.service'; 
+import { Team } from '../models/team';
+import { TeamService } from '../services/team.service';
 import { RouterLink } from '@angular/router';
 import { switchMap, of, forkJoin } from 'rxjs';
 
@@ -12,8 +12,8 @@ import { switchMap, of, forkJoin } from 'rxjs';
   selector: 'app-admin',
   standalone: true,
   templateUrl: './admin.component.html',
-  imports: [CommonModule, FormsModule, RouterLink],
-  styleUrls: ['./admin.component.css']
+  imports: [CommonModule, FormsModule],
+  styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent implements OnInit {
   users: User[] = [];
@@ -36,16 +36,19 @@ export class AdminComponent implements OnInit {
     this.loadTeams();
   }
 
-  // --- Users ---
   loadUsers() {
     this.userService.getAllUsers().subscribe({
-      next: (data) => { this.users = data; },
-      error: (error) => { console.error('Error fetching users:', error); }
+      next: (data) => {
+        this.users = data;
+      },
+      error: (error) => {
+        console.error('Error fetching users:', error);
+      },
     });
   }
 
   editUser(user: User) {
-    this.editingUser = { ...user }; 
+    this.editingUser = { ...user };
   }
 
   startCreate() {
@@ -54,13 +57,23 @@ export class AdminComponent implements OnInit {
   }
 
   createUser() {
+    if (!this.user.password || this.user.password.length < 6) {
+      alert('Password skal være mindst 6 tegn langt!');
+      return;
+    }
+
     this.userService.createUser(this.user).subscribe({
       next: (newUser) => {
         this.users.push(newUser);
         this.creating = false;
         this.user = resetUser();
       },
-      error: (error) => console.error('Error creating user:', error)
+      error: (error) => {
+        console.error('Error creating user:', error);
+        if (error.error && error.error.errors) {
+          console.error('Valideringsfejl:', error.error.errors);
+        }
+      },
     });
   }
 
@@ -70,7 +83,7 @@ export class AdminComponent implements OnInit {
   }
 
   openEdit(user: User) {
-    this.editingUser = { ...user }; 
+    this.editingUser = { ...user };
   }
 
   saveUser() {
@@ -81,7 +94,7 @@ export class AdminComponent implements OnInit {
         this.loadUsers();
         this.editingUser = null;
       },
-      error: (error) => console.error('Error Kan ikke opdatere user:', error)
+      error: (error) => console.error('Error Kan ikke opdatere user:', error),
     });
   }
 
@@ -90,7 +103,7 @@ export class AdminComponent implements OnInit {
 
     this.userService.deleteUser(id).subscribe({
       next: () => this.loadUsers(),
-      error: (error) => console.error('Error Kan ikke slette brugere', error)
+      error: (error) => console.error('Error Kan ikke slette brugere', error),
     });
   }
 
@@ -98,32 +111,35 @@ export class AdminComponent implements OnInit {
     this.editingUser = null;
   }
 
-  // --- Teams ---
-loadTeams() {
-  this.loadingTeams = true;
+  loadTeams() {
+    this.loadingTeams = true;
 
-  this.teamService.getAllTeams().pipe(
-    switchMap(teams => {
-      if (!teams || teams.length === 0) return of([] as Team[]);
-      // Hent detaljer for hvert team (GET /api/Teams/{id}) som indeholder members
-      return forkJoin(teams.map(t => this.teamService.getTeamById(t.teamId)));
-    })
-  ).subscribe({
-    next: (teamsWithMembers: Team[]) => {
-      this.teamByUserId.clear();
-      for (const t of teamsWithMembers) {
-        for (const m of (t.members || [])) {
-          this.teamByUserId.set(m.id, { teamId: t.teamId, name: t.name });
-        }
-      }
-      this.loadingTeams = false;
-    },
-    error: (err) => {
-      console.error('Fejl ved hentning af teams:', err);
-      this.loadingTeams = false;
-    }
-  });
-}
+    this.teamService
+      .getAllTeams()
+      .pipe(
+        switchMap((teams) => {
+          if (!teams || teams.length === 0) return of([] as Team[]);
+          return forkJoin(
+            teams.map((t) => this.teamService.getTeamById(t.teamId))
+          );
+        })
+      )
+      .subscribe({
+        next: (teamsWithMembers: Team[]) => {
+          this.teamByUserId.clear();
+          for (const t of teamsWithMembers) {
+            for (const m of t.members || []) {
+              this.teamByUserId.set(m.id, { teamId: t.teamId, name: t.name });
+            }
+          }
+          this.loadingTeams = false;
+        },
+        error: (err) => {
+          console.error('Fejl ved hentning af teams:', err);
+          this.loadingTeams = false;
+        },
+      });
+  }
 
   getTeamName(userId: number): string | null {
     return this.teamByUserId.get(userId)?.name ?? null;

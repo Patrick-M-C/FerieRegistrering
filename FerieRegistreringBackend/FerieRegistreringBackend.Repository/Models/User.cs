@@ -29,7 +29,6 @@ namespace FerieRegistreringBackend.Repository.Models
         [Required]
         public DateOnly DateOfBirth { get; set; }
 
-        [Required]
         [JsonIgnore]
         public string Password { get; set; } = string.Empty;
 
