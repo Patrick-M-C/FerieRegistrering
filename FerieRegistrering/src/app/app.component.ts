@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -17,6 +16,14 @@ export class AppComponent {
 
   get isLoggedIn(): boolean {
     return this.auth.isLoggedIn();
+  }
+
+  get isLeader(): boolean {
+    return this.auth.isLeader();
+  }
+
+  get isEmployee(): boolean {
+    return this.auth.isEmployee();
   }
 
   logout() {
