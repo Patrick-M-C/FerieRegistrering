@@ -7,4 +7,5 @@ export interface Vacation {
     isApproved: boolean;
     userId: number;
     employeeName: string;
+    createdAtUtc: Date;
 }
