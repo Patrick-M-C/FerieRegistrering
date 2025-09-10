@@ -1,10 +1,18 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
-import { routes } from './app/app.routes';
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { authInterceptor } from './app/services/token.service';
-import { importProvidersFrom } from '@angular/core';
 import { appConfig } from './app/app.config';
 
-bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));
+import { LOCALE_ID, ApplicationConfig, mergeApplicationConfig } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDa from '@angular/common/locales/da';
+
+registerLocaleData(localeDa, 'da-DK');
+
+const localeConfig: ApplicationConfig = {
+  providers: [{ provide: LOCALE_ID, useValue: 'da-DK' }]
+};
+
+bootstrapApplication(
+  AppComponent,
+  mergeApplicationConfig(appConfig, localeConfig)
+).catch(err => console.error(err));

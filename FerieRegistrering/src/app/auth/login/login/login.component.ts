@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth.service';
 import { LoginRequest  } from '../../../models/login';
+import { userInfo } from 'os';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,12 @@ import { LoginRequest  } from '../../../models/login';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  email: string = ''; // backend forventer email, ikke username
+  email: string = ''; 
   password: string = '';
 
   constructor(
     private router: Router,
-    private authService: AuthService // <-- rigtig injection
+    private authService: AuthService 
   ) {}
 
   login() {
@@ -30,7 +31,6 @@ export class LoginComponent {
     this.authService.login(request).subscribe({
       next: (response) => {
         console.log(response);
-        // her har du response med token, role, osv.
         if (response.role === 'Leader') {
           this.router.navigate(['/admin']);
         } else {
@@ -38,7 +38,7 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        alert('Forkert login: ' + (err.error || 'Prøv igen'));
+        alert('Forkert login: ' + 'Prøv igen');
       },
     });
   }

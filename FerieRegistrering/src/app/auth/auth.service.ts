@@ -23,7 +23,7 @@ export class AuthService {
 
   login(request: LoginRequest): Observable<auth> {
     return this.http.post<auth>(`${this.AuthApiUrl}/login`, request).pipe(
-      tap(response => {
+      tap((response) => {
         if (response?.token && this.canUseStorage) {
           localStorage.setItem(this.tokenKey, response.token);
         }
@@ -44,4 +44,16 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+getUserId(): number | null {
+  const token = this.getToken();
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return +payload.sub || null; 
+  } catch {
+    return null;
+  }
+}
 }

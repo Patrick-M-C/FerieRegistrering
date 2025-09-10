@@ -7,6 +7,7 @@ import { HomeComponent } from './homepage/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth/auth-guard';
 import { AdminGuard } from './auth/admin-guard';
+import { AdminDasboardComponent } from './admin-dasboard-component/admin-dasboard-component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'ferie', component: FerieComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: AdminDasboardComponent },
   { path: '**', redirectTo: '/'}
 ];
 
