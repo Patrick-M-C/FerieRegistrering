@@ -1,4 +1,4 @@
-<h2>Min profil</h2>
+<!-- <h2>Min profil</h2>
 
 <div *ngIf="user">
   <div *ngIf="!editing">
@@ -21,6 +21,11 @@
       <input [(ngModel)]="user.lastName" name="lastName" required />
     </label>
 
+
+    <button (click)="save()">Gem</button>
+    <button (click)="toggleEdit()">Annuller</button>
+  </div>
+</div> -->
     <label>
       Email:
       <input type="email" [(ngModel)]="user.email" name="email" required />

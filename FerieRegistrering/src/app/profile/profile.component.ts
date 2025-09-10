@@ -16,16 +16,16 @@ export class ProfileComponent {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    this.user = this.authService.getUser();
-  }
+  // ngOnInit() {
+  //   this.user = this.authService.getUser();
+  // }
 
-  toggleEdit() {
-    this.editing = !this.editing;
-  }
+  // toggleEdit() {
+  //   this.editing = !this.editing;
+  // }
 
-  save() {
-    this.authService.updateUser(this.user);
-    this.editing = false;
-  }
+  // save() {
+  //   this.authService.updateUser(this.user);
+  //   this.editing = false;
+  // }
 }
