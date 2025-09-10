@@ -1,41 +1,77 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { VacationService } from '../services/vacation.service';
+import { Vacation } from '../models/vacations';
+
+type VacationStatus = 'Pending' | 'Approved' | 'Rejected';
 
 @Component({
   selector: 'app-ferie',
-  templateUrl: './ferie.component.html',
+  standalone: true,
   imports: [CommonModule, FormsModule],
+  templateUrl: './ferie.component.html',
   styleUrls: ['./ferie.component.css']
 })
-export class FerieComponent {
+export class FerieComponent implements OnInit {
   currentYear = new Date().getFullYear();
-  currentMonth = 0; // Januar = 0 (JavaScript måned index)
-  ferier: { startDato: string; slutDato: string; kommentar?: string }[] = [];
-  startDato: string ='';
-  slutDato: string = '';
-  kommentar: string = '';
+  currentMonth = new Date().getMonth();
 
+  ferier: (Vacation & { status: VacationStatus })[] = [];
+  startDato = '';
+  slutDato = '';
+  reason = '';
+  loading = false;
+  error: string | null = null;
 
-  reservedDays: { [key: string]: boolean } = {
-    '2025-01-05': true,
-    '2025-01-12': true,
-    '2025-02-03': true,
+  // Tekst til badges
+  statusText: Record<VacationStatus, string> = {
+    Pending: 'Afventer',
+    Approved: 'Godkendt',
+    Rejected: 'Afvist'
   };
 
-  gemFerie() {
-    if (this.startDato && this.slutDato) {
-      this.ferier.push({
-        startDato: this.startDato,
-        slutDato: this.slutDato,
-        kommentar: this.kommentar
-      });
+  constructor(private vacationService: VacationService) {}
 
-      // Nulstil formularfelterne
-      this.startDato = '';
-      this.slutDato = '';
-      this.kommentar = '';
-    }
+  ngOnInit() {
+    this.getMyVacations();
+  }
+
+  // Normaliser status (understøtter både tal og strings fra backend)
+  private normalizeStatus(s: any): VacationStatus {
+    const map: any = {
+      0: 'Pending', 1: 'Approved', 2: 'Rejected',
+      Pending: 'Pending', Approved: 'Approved', Rejected: 'Rejected'
+    };
+    return (map[s] ?? 'Pending') as VacationStatus;
+  }
+
+  getMyVacations() {
+    this.loading = true;
+    this.error = null;
+    this.vacationService.getMine().subscribe({
+      next: (data) => {
+        this.ferier = data.map(v => ({ ...v, status: this.normalizeStatus((v as any).status) }));
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Kunne ikke hente ferieoplysninger.';
+        this.loading = false;
+      }
+    });
+  }
+
+  saveVacation() {
+    if (!this.startDato || !this.slutDato) return;
+    this.error = null;
+
+    this.vacationService.requestVacation(this.startDato, this.slutDato, this.reason).subscribe({
+      next: (ferie) => {
+        this.ferier = [...this.ferier, { ...ferie, status: this.normalizeStatus((ferie as any).status) }];
+        this.startDato = this.slutDato = this.reason = '';
+      },
+      error: () => this.error = 'Kunne ikke gemme ferie.'
+    });
   }
 
   get monthName(): string {
@@ -48,25 +84,21 @@ export class FerieComponent {
   }
 
   isReserved(day: number): boolean {
-    const dateKey = `${this.currentYear}-${String(this.currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    return this.reservedDays[dateKey] || false;
+    const date = new Date(this.currentYear, this.currentMonth, day).toISOString().slice(0, 10); // YYYY-MM-DD
+    return this.ferier.some(f => date >= f.startDate && date <= f.endDate);
   }
 
-  prevMonth() {
-    if (this.currentMonth === 0) {
-      this.currentMonth = 11;
-      this.currentYear--;
-    } else {
-      this.currentMonth--;
-    }
+  changeMonth(delta: number) {
+    const d = new Date(this.currentYear, this.currentMonth + delta, 1);
+    this.currentYear = d.getFullYear();
+    this.currentMonth = d.getMonth();
   }
 
-  nextMonth() {
-    if (this.currentMonth === 11) {
-      this.currentMonth = 0;
-      this.currentYear++;
-    } else {
-      this.currentMonth++;
-    }
+  badgeClass(s: VacationStatus) {
+    return {
+      'bg-success': s === 'Approved',
+      'bg-warning text-dark': s === 'Pending',
+      'bg-danger': s === 'Rejected'
+    };
   }
 }

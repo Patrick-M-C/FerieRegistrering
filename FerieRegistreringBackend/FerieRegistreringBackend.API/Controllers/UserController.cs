@@ -38,9 +38,14 @@ namespace FerieRegistreringBackend.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> Update(int id, User user)
+        public async Task<ActionResult<User>> Update(int id, [FromBody] UpdateUserDto dto)
         {
-            if (id != user.Id) return BadRequest();
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null) return NotFound();
+
+            user.Name = dto.Name;
+            user.LastName = dto.LastName;
+            user.Email = dto.Email;
 
             var updated = await _userRepository.UpdateAsync(user);
             return Ok(updated);

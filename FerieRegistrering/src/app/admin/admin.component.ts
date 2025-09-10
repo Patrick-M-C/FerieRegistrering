@@ -8,7 +8,7 @@ import { UserService } from '../services/user.service';
   selector: 'app-admin',
   standalone: true,
   templateUrl: './admin.component.html',
-  imports: [CommonModule, FormsModule ],
+  imports: [CommonModule, FormsModule],
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {

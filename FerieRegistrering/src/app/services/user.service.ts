@@ -4,28 +4,27 @@ import { Observable } from 'rxjs';
 import { environment } from '../Environments/environments';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
   private readonly userApiUrl = environment.apiUrl + '/User';
-  
-    constructor(private http: HttpClient) { }
 
-  getAllUsers() : Observable<User[]> {
-    if (!this.http) {
-      throw new Error('HttpClient is not initialized.');
-    }
-    return this. http.get<User[]>(this.userApiUrl);
+  constructor(private http: HttpClient) {}
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.userApiUrl);
   }
 
-  
-  updateUser(user: User) {
+  getById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.userApiUrl}/${id}`);
+  }
+
+  // ✨ accepterer kun felter der ændres, men kræver id
+  updateUser(user: Partial<User> & { id: number }): Observable<User> {
     return this.http.put<User>(`${this.userApiUrl}/${user.id}`, user);
   }
 
   deleteUser(id: number) {
-    return this.http.delete(`${this.userApiUrl}/${id}`);
+    return this.http.delete<void>(`${this.userApiUrl}/${id}`);
   }
 
   createUser(user: User) {

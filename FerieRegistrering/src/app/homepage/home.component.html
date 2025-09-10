@@ -1,7 +1,53 @@
-<h1>Velkommen til systemet</h1>
-<p>Her kan du logge ind for at administrere brugere eller se ferieoversigten.</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-body text-center p-5">
+          <h1 class="display-5 fw-bold mb-3 text-primary">
+            Velkommen til Registreringssystemet
+          </h1>
+          <p class="lead mb-4 text-muted">
+            Her kan du logge ind for at administrere brugere eller få et hurtigt overblik over ferieplanlægningen.
+          </p>
 
-<nav>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/ferie">Ferieoversigt</a>
-</nav>
+          <!-- CTA-knapper -->
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a routerLink="/login" class="btn btn-lg btn-primary px-4">
+              <i class="bi bi-box-arrow-in-right me-2"></i> Login
+            </a>
+            <a routerLink="/ferie" class="btn btn-lg btn-outline-success px-4">
+              <i class="bi bi-calendar-week me-2"></i> Ferieoversigt
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ekstra info sektion -->
+      <div class="row mt-4 g-3">
+        <div class="col-md-6">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-people display-4 text-primary mb-3"></i>
+              <h5 class="card-title">Brugeradministration</h5>
+              <p class="text-muted">
+                Administrer brugere, roller og rettigheder på en enkel og overskuelig måde.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-sun display-4 text-warning mb-3"></i>
+              <h5 class="card-title">Ferieplanlægning</h5>
+              <p class="text-muted">
+                Få overblik over ferieønsker og godkendelser i en fælles oversigt.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

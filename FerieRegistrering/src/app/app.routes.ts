@@ -4,6 +4,7 @@ import { AdminComponent } from './admin/admin.component';
 import { FerieComponent } from './ferie/ferie.component';
 import { HomeComponent } from './homepage/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminDasboardComponent } from './admin-dasboard-component/admin-dasboard-component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -11,5 +12,6 @@ export const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'ferie', component: FerieComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'dashboard', component: AdminDasboardComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
