@@ -1,42 +1,91 @@
-<h2>Ferieoversigt</h2>
+<div class="container-fluid py-4">
+  <div class="row g-4">
+    <!-- Form-kort -->
+    <div class="col-12 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h2 class="h5 mb-0">Anmod om ferie</h2>
+        </div>
+        <div class="card-body">
+          <form class="row g-3" (ngSubmit)="saveVacation()">
+            <div class="col-12 col-md-6">
+              <label class="form-label">Startdato</label>
+              <input type="date" class="form-control" [(ngModel)]="startDato" name="startDato" required>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label">Slutdato</label>
+              <input type="date" class="form-control" [(ngModel)]="slutDato" name="slutDato" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Kommentar</label>
+              <textarea class="form-control" rows="2" [(ngModel)]="reason" name="kommentar" placeholder="Fx skal du på ferie?"></textarea>
+            </div>
+            <div class="col-12 d-flex gap-2">
+              <button type="submit" class="btn btn-success" [disabled]="!startDato || !slutDato">
+                Gem ferie
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
-<!-- Formular til at gemme ferie -->
-<form (ngSubmit)="gemFerie()">
-  <label for="startDato">Startdato:</label>
-  <input id="startDato" type="date" [(ngModel)]="startDato" name="startDato" required>
+    <!-- Liste over anmodninger -->
+    <div class="col-12 col-lg-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-header">
+          <h2 class="h5 mb-0">Mine anmodninger</h2>
+        </div>
+        <div class="card-body p-0">
+          <ul class="list-group list-group-flush" *ngIf="ferier?.length; else emptyState">
+            <li class="list-group-item d-flex align-items-start justify-content-between"
+                *ngFor="let ferie of ferier">
+              <div class="me-3">
+                <div class="fw-semibold">
+                  {{ ferie.startDate | date:'d. MMM y':'':'da-DK' }} – {{ ferie.endDate | date:'d. MMM y':'':'da-DK' }}
+                </div>
+                <div class="text-muted small" *ngIf="ferie.reason?.trim()">{{ ferie.reason }}</div>
+              </div>
 
-  <label for="slutDato">Slutdato:</label>
-  <input id="slutDato" type="date" [(ngModel)]="slutDato" name="slutDato" required>
+              <ng-container [ngSwitch]="ferie.status">
+                <span *ngSwitchCase="'Approved'" class="badge rounded-pill bg-success align-self-center">Godkendt</span>
+                <span *ngSwitchCase="'Rejected'" class="badge rounded-pill bg-danger align-self-center">Afvist</span>
+                <span *ngSwitchDefault class="badge rounded-pill bg-warning text-dark align-self-center">Afventer</span>
+              </ng-container>
+            </li>
+          </ul>
 
-  <label for="kommentar">Kommentar:</label>
-  <textarea id="kommentar" [(ngModel)]="kommentar" name="kommentar"></textarea>
+          <ng-template #emptyState>
+            <div class="p-4 text-center text-muted">Ingen anmodninger endnu.</div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <button type="submit">Gem ferie</button>
-</form>
+  <!-- Kalender -->
+  <div class="row g-4 mt-1">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h3 class="h5 mb-0">Feriekalender</h3>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeMonth(-1)">‹</button>
+            <span class="fw-medium">{{ monthName | titlecase }} {{ currentYear }}</span>
+            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeMonth(1)">›</button>
+          </div>
+        </div>
 
-<!-- Liste over gemte ferier -->
-<ul>
-  <li *ngFor="let ferie of ferier">
-    {{ ferie.startDato }} - {{ ferie.slutDato }}
-    <span *ngIf="ferie.kommentar"> ({{ ferie.kommentar }})</span>
-  </li>
-</ul>
-
-<hr />
-
-<!-- Kalender sektionen -->
-<h3>Ferie Kalender</h3>
-
-<div class="calendar-header">
-  <button (click)="prevMonth()">Forrige</button>
-  <span>{{ monthName | titlecase }} {{ currentYear }}</span>
-  <button (click)="nextMonth()">Næste</button>
-</div>
-
-<div class="calendar-grid">
-  <div *ngFor="let day of daysInMonth"
-       [class.reserved]="isReserved(day)"
-       [class.available]="!isReserved(day)">
-    {{ day }}
+        <div class="card-body">
+          <div class="calendar-grid">
+            <div
+              *ngFor="let day of daysInMonth"
+              class="calendar-day"
+              [ngClass]="{ reserved: isReserved(day), available: !isReserved(day) }">
+              <span class="day-number">{{ day }}</span>
+            </div>
+          </div>
+      </div>
+    </div>
   </div>
 </div>

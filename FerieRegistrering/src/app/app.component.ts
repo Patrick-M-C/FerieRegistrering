@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth.service';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
@@ -11,16 +13,14 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  router: any;
-  authService: any;
-  constructor(private auth: AuthService) {}
+  constructor(private router: Router, public auth: AuthService) {}
 
   get isLoggedIn(): boolean {
-    return this.auth.isLoggedIn;
+    return this.auth.isLoggedIn();
   }
 
   logout() {
-    this.authService.logout();
+    this.auth.logout();
     this.router.navigate(['/home']);
   }
 }

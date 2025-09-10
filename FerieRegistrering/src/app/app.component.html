@@ -1,10 +1,21 @@
 <nav class="navbar">
-  <a routerLink="/"> Home</a>
+  <a routerLink="/home"> Home</a>
   <a routerLink="/login">Login</a>
   <a routerLink="/admin">Admin</a>
   <a routerLink="/ferie">Ferie</a>
+  <a routerLink="/profile">Profil</a>
+  <a routerLink="/dashboard">Admin Dashboard</a>
 
-  <button (click)="logout()">Log ud</button>
+  <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+  <!-- <p>Welcome, {{ auth.getUsername() }}!</p> -->
+  <button type="button" (click)="logout()" class="btn btn-danger btn-sm">Logout</button>
+</ng-container>
+<ng-template #notLoggedIn>
+  <span class="text-white">Please log in.</span>
+  <!-- Add login form or navigate to login page -->
+</ng-template>
 </nav>
+
+
 
 <router-outlet></router-outlet>

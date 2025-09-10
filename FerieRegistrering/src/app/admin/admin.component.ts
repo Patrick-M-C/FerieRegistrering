@@ -4,57 +4,27 @@ import { FormsModule } from '@angular/forms';
 import { resetUser, User } from '../models/user';
 import { UserService } from '../services/user.service';
 
-// interface User {
-//   id: number;
-//   username: string;
-//   role: string;
-// }
-
 @Component({
   selector: 'app-admin',
+  standalone: true,
   templateUrl: './admin.component.html',
-  imports: [CommonModule, FormsModule ],
+  imports: [CommonModule, FormsModule],
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
   users: User[] = [];
+  editingUser: User | null = null;
   user: User = resetUser();
+  creating = false;
 
   constructor(private userService: UserService) {}
 
-  // users: User[] = [];
-  // editingUser: User | null = null; // Den bruger vi redigerer
-
   ngOnInit(): void {
-    // midlertidigt dummy data (indtil du kobler til backend / DB)
-    // this.users = [
-    //   { id: 1, username: 'admin', role: 'Admin' },
-    //   { id: 2, username: 'john_doe', role: 'User' },
-    //   { id: 3, username: 'jane_doe', role: 'User' }
-    // ];
     this.loadUsers();
   }
 
-  // editUser(user: User) {
-  //    this.editingUser = { ...user }; // clone så vi ikke overskriver direkte
-  // }
-
-  saveUser() {
-    // if (this.editingUser) {
-    //   const index = this.users.findIndex(u => u.id === this.editingUser!.id);
-    //   if (index > -1) {
-    //     this.users[index] = { ...this.editingUser };
-    //   }
-    //   this.editingUser = null;
-    // }
-  }
-
-  deleteUser(id: number) {
-    // this.users = this.users.filter(u => u.id !== id);
-  }
-
-  cancelEdit() {
-    // this.editingUser = null;
+  editUser(user: User) {
+    this.editingUser = { ...user }; // laver en kopi så vi ikke ændrer live-data
   }
 
   loadUsers() {
@@ -66,5 +36,80 @@ export class AdminComponent implements OnInit {
         console.error('Error fetching users:', error);
       }
     })
+  }
+
+  startCreate() {
+    this.user = resetUser();
+    this.creating = true;
+  }
+
+  // 🔹 Gem ny bruger
+  createUser() {
+    this.userService.createUser(this.user).subscribe({
+      next: (newUser) => {
+        this.users.push(newUser);
+        this.creating = false;
+        this.user = resetUser();
+      },
+      error: (error) => console.error('Error creating user:', error)
+    });
+  }
+
+  // 🔹 Luk create-form
+  cancelCreate() {
+    this.creating = false;
+    this.user = resetUser();
+  }
+
+  openEdit(user: User) {
+    this.editingUser = { ...user }; // Kopi af brugerdata
+  }
+
+  saveUser() {
+    if (!this.editingUser) return;
+
+    this.userService.updateUser(this.editingUser).subscribe({
+      next: () => {
+        this.loadUsers();
+        this.editingUser = null;
+      },
+      error: (error) => console.error('Error Kan ikke opdatere user:', error)
+    });
+  }
+
+  deleteUser(id: number) {
+    if (!confirm('Er du sikker på at du vil slette denne bruger?')) return;
+
+    this.userService.deleteUser(id).subscribe({
+      next: () => this.loadUsers(),
+      error: (error) => console.error('Error Kan ikke slette brugere', error)
+    });
+  }
+
+  closeEdit() {
+    this.editingUser = null;
+  }
+
+  startCreate() {
+    this.user = resetUser();
+    this.creating = true;
+  }
+
+  // 🔹 Gem ny bruger
+  createUser() {
+    this.userService.createUser(this.user).subscribe({
+      next: (newUser) => {
+        this.users.push(newUser);
+        this.creating = false;
+        this.user = resetUser();
+      },
+      error: (error) => console.error('Error creating user:', error)
+    });
+  }
+
+  // 🔹 Luk create-form
+  cancelCreate() {
+    this.creating = false;
+    this.user = resetUser();
   }
 }

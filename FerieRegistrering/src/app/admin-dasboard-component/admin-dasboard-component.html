@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2>Ventende ferieanmodninger</h2>
+
+  <div *ngIf="loading">Henter data...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table class="table table-striped" *ngIf="!loading && pending.length > 0">
+    <thead>
+      <tr>
+        <th>Medarbejder</th>
+        <th>Fra</th>
+        <th>Til</th>
+        <th>Kommentar</th>
+        <th>Handling</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ferie of pending">
+        <td>{{ ferie.employeeName }}</td>
+        <td>{{ ferie.startDate | date }}</td>
+        <td>{{ ferie.endDate | date }}</td>
+        <td>{{ ferie.reason }}</td>
+        <td>
+          <button class="btn btn-success btn-sm me-2" (click)="godkend(ferie.id)">Godkend</button>
+          <button class="btn btn-danger btn-sm" (click)="afvis(ferie.id)">Afvis</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && pending.length === 0">Ingen ventende anmodninger 🎉</p>
+</div>

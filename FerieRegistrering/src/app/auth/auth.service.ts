@@ -1,38 +1,59 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { LoginRequest } from '../models/login';
+import { HttpClient } from '@angular/common/http';
+import { auth } from '../models/auth';
+import { environment } from '../Environments/environments';
+import { isPlatformBrowser } from '@angular/common';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  isLoggedIn = false;
-  currentUser: any = null;
-  users: any[] = [];
+  private readonly AuthApiUrl = environment.apiUrl + '/Auth';
+  private tokenKey = 'auth_token';
 
-  constructor(private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
-  login(username: string, password: string): boolean {
-    if (username === 'Admin' && password === 'Admin') {
-      this.isLoggedIn = true;
-      this.currentUser = { username, role: 'admin' };
-      this.router.navigate(['/admin']);
-      return true;
-    } else if (username === 'User' && password === 'User') {
-      this.isLoggedIn = true;
-      this.currentUser = { username, role: 'user' };
-      this.router.navigate(['/home']);
-      return true;
-    }
-    return false;
+  private get canUseStorage(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
+  login(request: LoginRequest): Observable<auth> {
+    return this.http.post<auth>(`${this.AuthApiUrl}/login`, request).pipe(
+      tap((response) => {
+        if (response?.token && this.canUseStorage) {
+          localStorage.setItem(this.tokenKey, response.token);
+        }
+      })
+    );
   }
 
   logout(): void {
-    this.isLoggedIn = false;
-    this.currentUser = null;
-    this.router.navigate(['/login']);
+    if (this.canUseStorage) {
+      localStorage.removeItem(this.tokenKey);
+    }
   }
 
-  getRole(): string | null {
-    return this.currentUser ? this.currentUser.role : null;
+  getToken(): string | null {
+    return this.canUseStorage ? localStorage.getItem(this.tokenKey) : null;
   }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+getUserId(): number | null {
+  const token = this.getToken();
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return +payload.sub || null; 
+  } catch {
+    return null;
+  }
+}
 }

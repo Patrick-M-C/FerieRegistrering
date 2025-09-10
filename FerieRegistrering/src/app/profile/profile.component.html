@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Min profil</h4>
+        </div>
+
+        <div class="card-body">
+          <div *ngIf="loading" class="text-center my-3">
+            <div class="spinner-border text-primary"></div>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+          <!-- VISNING -->
+          <div *ngIf="user && !loading && !editing">
+            <dl class="row">
+              <dt class="col-sm-4">Navn</dt>
+              <dd class="col-sm-8">{{ user.name }} {{ user.lastName }}</dd>
+
+              <dt class="col-sm-4">Email</dt>
+              <dd class="col-sm-8">{{ user.email }}</dd>
+
+              <dt class="col-sm-4">Fødselsdag</dt>
+              <dd class="col-sm-8">{{ user.dateOfBirth | date }}</dd>
+            </dl>
+
+            <div class="text-end">
+              <button class="btn btn-primary" (click)="toggleEdit()">
+                <i class="bi bi-pencil-square"></i> Rediger
+              </button>
+            </div>
+          </div>
+
+          <!-- REDIGERING -->
+          <form *ngIf="editing && editModel" (ngSubmit)="save()" #f="ngForm" novalidate>
+            <div class="mb-3">
+              <label for="name" class="form-label">Fornavn</label>
+              <input id="name" class="form-control"
+                     [(ngModel)]="editModel.name" name="name" required />
+            </div>
+
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Efternavn</label>
+              <input id="lastName" class="form-control"
+                     [(ngModel)]="editModel.lastName" name="lastName" required />
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" type="email" class="form-control"
+                     [(ngModel)]="editModel.email" name="email" required email />
+            </div>
+
+            <div class="mb-3">
+              <label for="dob" class="form-label">Fødselsdag</label>
+              <input id="dob" type="date" class="form-control"
+                     [(ngModel)]="editModel.dateOfBirth" name="dateOfBirth" required
+                     disabled /> 
+                
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-outline-secondary" (click)="toggleEdit()" [disabled]="saving">
+                Annuller
+              </button>
+              <button type="submit" class="btn btn-success" [disabled]="saving || f.invalid">
+                <span *ngIf="saving" class="spinner-border spinner-border-sm me-2"></span>
+                Gem
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
