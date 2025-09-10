@@ -12,7 +12,7 @@
 
           <!-- CTA-knapper -->
           <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a routerLink="/login" class="btn btn-lg btn-primary px-4">
+            <a *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-lg btn-primary px-4">
               <i class="bi bi-box-arrow-in-right me-2"></i> Login
             </a>
             <a routerLink="/ferie" class="btn btn-lg btn-outline-success px-4">
