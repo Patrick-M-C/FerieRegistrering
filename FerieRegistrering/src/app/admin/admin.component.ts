@@ -38,6 +38,29 @@ export class AdminComponent implements OnInit {
     })
   }
 
+  startCreate() {
+    this.user = resetUser();
+    this.creating = true;
+  }
+
+  // 🔹 Gem ny bruger
+  createUser() {
+    this.userService.createUser(this.user).subscribe({
+      next: (newUser) => {
+        this.users.push(newUser);
+        this.creating = false;
+        this.user = resetUser();
+      },
+      error: (error) => console.error('Error creating user:', error)
+    });
+  }
+
+  // 🔹 Luk create-form
+  cancelCreate() {
+    this.creating = false;
+    this.user = resetUser();
+  }
+
   openEdit(user: User) {
     this.editingUser = { ...user }; // Kopi af brugerdata
   }

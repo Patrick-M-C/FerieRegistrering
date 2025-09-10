@@ -19,6 +19,9 @@ export class UserService {
     return this. http.get<User[]>(this.userApiUrl);
   }
 
+  createUser(user: User) {
+    return this.http.post<User>(this.userApiUrl, user);
+  }
   
   updateUser(user: User) {
     return this.http.put<User>(`${this.userApiUrl}/${user.id}`, user);
